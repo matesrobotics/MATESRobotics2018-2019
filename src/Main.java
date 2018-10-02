@@ -53,7 +53,6 @@ public class Main extends LinearOpMode {
     private Servo cubeGrabber;
     private Servo grabber;
 
-
     @Override
     public void runOpMode() {
         tLeftDrive = hardwareMap.get(DcMotor.class, "tLeftDrive");
@@ -78,7 +77,6 @@ public class Main extends LinearOpMode {
         
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         
-
         telemetry.addData("Status", "Initialized");
         telemetry.update();
        
@@ -114,25 +112,15 @@ public class Main extends LinearOpMode {
             boolean stopRight  =  !gamepad1.dpad_right;
             
             double armRaise = gamepad1.right_trigger;
-            
-            
-            
-            //int raise;
-            
+
     
            // double armPower = gamepad1.right_trigger;
-            
-                
-             
-
-        
-            
+      
             tLeftPower    = Range.clip(drive + side, -1.0, 1.0) ;
             tRightPower   = Range.clip(drive - side, -1.0, 1.0) ;
             bLeftPower    = Range.clip(drive + side, -1.0, 1.0) ;
             bRightPower   = Range.clip(drive - side, -1.0, 1.0) ;
           //  arm           = Range.clip(armPower, -1.0, 1.0);
-            
         
             while (turnLeft){
             tLeftDrive.setPower(1.0);
@@ -143,8 +131,7 @@ public class Main extends LinearOpMode {
         
                     turnLeft = false;
                 }
-            
-                
+
                 }
             
          while (turnRight){
@@ -191,19 +178,17 @@ public class Main extends LinearOpMode {
             
             arm.setTargetPosition(raise+5);
             arm.setPower(0.3);
-            
+
         } else if(armRaise < 0) {
             arm.setTargetPosition(raise-5);
             arm.setPower(0.3);
-            
-            
+
         } else {
             arm.setTargetPosition(0);
             arm.setPower(0);
             
         }
-        
-            
+
         
             // if (gamepad1.right_bumper) {
             //     extender.setPower(1);
