@@ -30,7 +30,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.*;
 @TeleOp
 
-public class Main extends LinearOpMode {
+public class Test2018 extends LinearOpMode {
 	private DcMotor tLeftDrive;
 	private DcMotor tRightDrive;
 	private DcMotor bLeftDrive;
@@ -56,7 +56,6 @@ public class Main extends LinearOpMode {
 
 		// Wait for the game to start (driver presses PLAY)
 		waitForStart();
-		runtime.reset;
 
 		// run until the end of the match (driver presses STOP)
 		while (opModeIsActive()) {
@@ -68,13 +67,11 @@ public class Main extends LinearOpMode {
 			double tRightPower;
 			double bLeftPower;
 			double bRightPower;
-
-			// POV Mode uses left stick to go forward, and right stick to turn.
-			// - This uses basic math to combine motions and is easier to drive straight.
-			tLeftPower    = Range.clip(drive + side, -1.0, 1.0) ;
-			tRightPower   = Range.clip(drive - side, -1.0, 1.0) ;
-			bLeftPower    = Range.clip(drive + side, -1.0, 1.0) ;
-			bRightPower   = Range.clip(drive - side, -1.0, 1.0) ;
+			
+            tLeftPower  = -gamepad1.left_stick_y ;
+            tRightPower = gamepad1.right_stick_y ;
+            bLeftPower  = -gamepad1.left_stick_y ;
+            bRightPower = gamepad1.right_stick_y ;
 
 			// Send calculated power to wheels
 			tLeftDrive.setPower(-tLeftPower);
@@ -85,7 +82,6 @@ public class Main extends LinearOpMode {
 			// Show the elapsed game time and wheel power.
 			telemetry.addData("Status", "Run Time: " + runtime.toString());
 			telemetry.addData("Motors", "Top Left (%.2f), Top Right (%.2f), Bottom Left (%.2f), Bottom Right (%.2f)", tLeftPower, tRightPower, bLeftPower, bRightPower);
-			telemetry.addData("Target Power", tgtPower);
 			telemetry.addData("Status", "Running");
 			telemetry.update();
 
