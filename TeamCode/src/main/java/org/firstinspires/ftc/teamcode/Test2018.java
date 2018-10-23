@@ -86,11 +86,9 @@ public class Test2018 extends LinearOpMode {
 			telemetry.update();
 			//hi this is brady
 			//hi this is corbin
-<<<<<<< HEAD
 			//hi this is michael
-=======
 			//hi this is ryan
->>>>>>> d2ac9c0b60b64a480c3f4a2f83c69d9c8764d8d5
+
 		}
 
 	}
