@@ -84,7 +84,7 @@ public class Test2018 extends LinearOpMode {
 			telemetry.addData("Motors", "Top Left (%.2f), Top Right (%.2f), Bottom Left (%.2f), Bottom Right (%.2f)", tLeftPower, tRightPower, bLeftPower, bRightPower);
 			telemetry.addData("Status", "Running");
 			telemetry.update();
-
+			//hi this is brady
 			//hi this is corbin
 		}
 
