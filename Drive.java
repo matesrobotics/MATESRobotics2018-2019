@@ -58,7 +58,7 @@ public class Drive extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         
-        int grabberPos = 0;
+        double grabberPos = 0;
         grabber.setPosition(grabberPos);
         
         int liftPos = 0;
@@ -85,16 +85,17 @@ public class Drive extends LinearOpMode {
             
             //
             if (gamepad1.right_trigger > 0) {
-            	grabberPos += gamepad1.right_trigger;
+            	grabberPos += gamepad1.right_trigger / 50;
             }
             
             if (gamepad1.left_trigger > 0) {
-            	grabberPos -= gamepad1.left_trigger;
+            	grabberPos -= gamepad1.left_trigger / 50;
             }
             
-            grabberPos = Range.clip(grabberPos, 0, 2000);
+            grabberPos = Range.clip(grabberPos, 0, 1);
             
-            while ()
+            grabber.setPosition(grabberPos);
+            
             
             //lift system for robot (activated by dpad up)
             boolean raiseLift = gamepad1.dpad_up;
