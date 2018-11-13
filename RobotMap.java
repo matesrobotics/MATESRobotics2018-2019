@@ -1,4 +1,4 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
+/* Copyright 2018-2019 FIRST Tech Challenge Team 12365
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted (subject to the limitations in the disclaimer below) provided that
@@ -50,8 +50,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-public class RobotMap
-{
+public class RobotMap {
     /* Public OpMode members. */
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
@@ -71,9 +70,9 @@ public class RobotMap
         hwMap = ahwMap;
 
         // Define and Initialize Motors
-        leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
-        rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
-        lift = hardwareMap.get(DcMotor.class, "lift");
+        leftDrive = hwMap.get(DcMotor.class, "leftDrive");
+        rightDrive = hwMap.get(DcMotor.class, "rightDrive");
+        lift = hwMap.get(DcMotor.class, "lift");
 
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -89,7 +88,7 @@ public class RobotMap
         lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // Define and initialize ALL installed servos.
-        bridge = hardwareMap.get(Servo.class, "bridge");
+        bridge = hwMap.get(Servo.class, "bridge");
         bridge.setPosition(1);
     }
  }

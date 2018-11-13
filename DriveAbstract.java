@@ -1,4 +1,4 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
+/* Copyright 2018-2019 FIRST Tech Challenge Team 12365
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted (subject to the limitations in the disclaimer below) provided that
@@ -49,84 +49,69 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Pushbot: Teleop Tank", group="Pushbot")
+@TeleOp(name="Tank Mode")
 public class DriveAbstract extends OpMode{
 
-    /* Declare OpMode members. */
-    RobotMap robot = new RobotMap(); // use the class created to define a Pushbot's hardware
+	/* Declare OpMode members. */
+	RobotMap robot = new RobotMap(); // use the class created to define a Pushbot's hardware
 
-    // Code to run ONCE when the driver hits INIT
+	@Override
+	public void init() {	// Code to run ONCE when the driver hits INIT
+		// Initialize the hardware variables.
+		robot.init(hardwareMap);
 
-    @Override
-    public void init() {
-        /* Initialize the hardware variables.
-         * The init() method of the hardware class does all the work here
-         */
-        robot.init(hardwareMap);
+		// Send telemetry message to signify robot waiting;
+		telemetry.addData("Say", "Hello Driver");
+	}
 
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");    //
-    }
+	@Override
+	public void init_loop() {	//Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+	}
+	
+	@Override
+	public void start() {	//Code to run ONCE when the driver hits PLAY
+		double bridgePos = 1; //sets bridge position all the way down
+		int liftPos = 0;
+	}
 
-    //Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+	@Override
+	public void loop() {	//Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+		
+		// Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
+		robot.leftDrive.setPower(-gamepad1.left_stick_y);
+		robot.rightDrive.setPower(gamepad1.right_stick_y);
 
-    @Override
-    public void init_loop() {
-    }
+		// Use Dpad-Up to run lift motor
+		if (gamepad1.dpad_up) { //if dpad-up is pressed, lift motor activates
+			robot.lift.setTargetPosition(liftPos + 5);
+			robot.lift.setPower(1);
+		} else {  //if not pressed, stops motor
+			robot.lift.setTargetPosition(liftPos);
+			robot.lift.setPower(0);
+		}
 
-    //Code to run ONCE when the driver hits PLAY
-    double bridgePos = 1;
-    int liftPos = 1;
-    
-    @Override
-    public void start() {
-    }
+		// Use left and right bumpers to control the bridge servo
+		bridgePos = 0.5; //initialize bridge to desired position when games starts
 
-    //Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+		if (gamepad1.right_trigger > 0) { //raises bridge
+			bridgePos += gamepad1.right_trigger / 50;
+		}
+		if (gamepad1.left_trigger > 0) { //lowers bridge
+			bridgePos -= gamepad1.left_trigger / 50;
+		}
 
-    @Override
-    public void loop() {
-        double left;
-        double right;
+		bridgePos = Range.clip(bridgePos, 0, 0.5); //limits position value to between 0 and 0.5
+		robot.bridge.setPosition(bridgePos); //assigns servo to bridge value
 
-        // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        robot.leftDrive.setPower(-gamepad1.left_stick_y);
-        robot.rightDrive.setPower(gamepad1.right_stick_y);
+		// Send telemetry message to signify robot running;
+		telemetry.addData("Status", "Run Time: " + runtime.toString());
+		telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f), Lift Status (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.dpad_up);
+		telemetry.addData("Bridge Position: ", bridgePos);
+		telemetry.addData("Status", "Running");
+		telemetry.update();
+	}
 
-        // Use Dpad-Up to run lift motor
-        if (gamepad1.dpad_up) { //if dpad-up is pressed, lift motor activates
-        	robot.lift.setTargetPosition(liftPos + 5);
-        	robot.lift.setPower(1);
-        } else { //if not pressed, stops motor
-        	robot.lift.setTargetPosition(liftPos);
-        	robot.lift.setPower(0);
-        }
-        
-        // Use left and right bumpers to control the bridge servo
-        bridgePos = 0.5; //initialize bridge to desired position when games starts
-        
-        if (gamepad1.right_trigger > 0) { //raises bridge
-        	bridgePos += gamepad1.right_trigger / 50;
-        }
-        if (gamepad1.left_trigger > 0) { //lowers bridge
-        	bridgePos -= gamepad1.left_trigger / 50;
-        }
-        
-        bridgePos = Range.clip(bridgePos, 0, 0.5); //limits position value to between 0 and 0.5
-        robot.bridge.setPosition(bridgePos); //assigns servo to bridge value
-
-        // Send telemetry message to signify robot running;
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f), Lift Status (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.dpad_up);
-        telemetry.addData("Grabber Position: ", bridgePos);
-        telemetry.addData("Status", "Running");
-        telemetry.update();
-    }
-
-    /*
-     * Code to run ONCE after the driver hits STOP
-     */
-    @Override
-    public void stop() {
-    }
+	@Override
+	public void stop() { //Code to run ONCE after the driver hits STOP
+	}
 }
