@@ -92,16 +92,13 @@ public class Drive extends LinearOpMode {
             	lift.setTargetPosition(liftPos);
             	lift.setPower(0);
             }
-
+            
             //Feedback
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f), Lift Status (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.dpad_up);
             telemetry.addData("Grabber Position: ", bridgePos);
             telemetry.addData("Status", "Running");
             telemetry.update();
-
         }
-
     }
-
 }
