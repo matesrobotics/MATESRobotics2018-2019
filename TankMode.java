@@ -37,21 +37,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
-/**
- * This file provides basic Telop driving for a Pushbot robot.
- * The code is structured as an Iterative OpMode
- *
- * This OpMode uses the common Pushbot hardware class to define the devices on the robot.
- * All device access is managed through the HardwarePushbot class.
- *
- * This particular OpMode executes a basic Tank Drive Teleop for a PushBot
- * It raises and lowers the claw using the Gampad Y and A buttons respectively.
- * It also opens and closes the claws slowly using the left and right Bumper buttons.
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
-
 @TeleOp(name="Tank Mode")
 public class TankMode extends OpMode{
 
@@ -71,7 +56,7 @@ public class TankMode extends OpMode{
         bridgePos = 1;
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");
+        telemetry.addData("v1.2.5", "Hello Driver!");
     }
 
     @Override
@@ -95,17 +80,17 @@ public class TankMode extends OpMode{
         robot.rightDrive.setPower(gamepad1.right_stick_y);
 
         // Use Dpad-Up to run lift motor
-        if (gamepad1.dpad_up) { //if dpad-up is pressed, lift motor activates
+        if (gamepad1.dpad_up) { //if dpad-up is pressed, lift position increases
             liftPos += 5;
-            if (liftPos % 2160 == 0) {
+            if (liftPos % 2160 == 0) { //lift position is increased in half-revolution increments
                 i++;
                 lift = 2160 * i;
             }
-            robot.lift.setTargetPosition(lift);
-            robot.lift.setPower(1);
+            robot.lift.setTargetPosition(lift); //sets position to motor
+            robot.lift.setPower(1); //starts motor
         } 
         
-        if (robot.lift.getCurrentPosition() % 4320 <= 25 ){
+        if (robot.lift.getCurrentPosition() % 4320 <= 25 ){ //if motor is on ground (one full revolution), motor turns off
             robot.lift.setPower(0);
         }
 
