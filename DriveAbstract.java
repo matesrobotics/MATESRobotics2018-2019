@@ -50,18 +50,13 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="Pushbot: Teleop Tank", group="Pushbot")
-@Disabled
 public class DriveAbstract extends OpMode{
 
     /* Declare OpMode members. */
-    HardwarePushbot robot       = new HardwarePushbot(); // use the class created to define a Pushbot's hardware
-                                                         // could also use HardwarePushbotMatrix class.
-    double          clawOffset  = 0.0 ;                  // Servo mid position
-    final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
+    RobotMap robot = new RobotMap(); // use the class created to define a Pushbot's hardware
 
-    /*
-     * Code to run ONCE when the driver hits INIT
-     */
+    // Code to run ONCE when the driver hits INIT
+
     @Override
     public void init() {
         /* Initialize the hardware variables.
@@ -73,53 +68,52 @@ public class DriveAbstract extends OpMode{
         telemetry.addData("Say", "Hello Driver");    //
     }
 
-    /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-     */
+    //Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+
     @Override
     public void init_loop() {
     }
 
-    /*
-     * Code to run ONCE when the driver hits PLAY
-     */
+    //Code to run ONCE when the driver hits PLAY
+    double bridgePos = 1;
+    int liftPos = 1;
+    
     @Override
     public void start() {
     }
 
-    /*
-     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
-     */
+    //Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+
     @Override
     public void loop() {
         double left;
         double right;
 
         // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        left = -gamepad1.left_stick_y;
-        right = -gamepad1.right_stick_y;
+        robot.leftDrive.setPower(-gamepad1.left_stick_y);
+        robot.rightDrive.setPower(gamepad1.right_stick_y);
 
-        robot.leftDrive.setPower(left);
-        robot.rightDrive.setPower(right);
-
-        // Use gamepad left & right Bumpers to open and close the claw
-        if (gamepad1.right_bumper)
-            clawOffset += CLAW_SPEED;
-        else if (gamepad1.left_bumper)
-            clawOffset -= CLAW_SPEED;
-
-        // Move both servos to new position.  Assume servos are mirror image of each other.
-        clawOffset = Range.clip(clawOffset, -0.5, 0.5);
-        robot.leftClaw.setPosition(robot.MID_SERVO + clawOffset);
-        robot.rightClaw.setPosition(robot.MID_SERVO - clawOffset);
-
-        // Use gamepad buttons to move the arm up (Y) and down (A)
-        if (gamepad1.y)
-            robot.leftArm.setPower(robot.ARM_UP_POWER);
-        else if (gamepad1.a)
-            robot.leftArm.setPower(robot.ARM_DOWN_POWER);
-        else
-            robot.leftArm.setPower(0.0);
+        // Use Dpad-Up to run lift motor
+        if (gamepad1.dpad_up) { //if dpad-up is pressed, lift motor activates
+        	robot.lift.setTargetPosition(liftPos + 5);
+        	robot.lift.setPower(1);
+        } else { //if not pressed, stops motor
+        	robot.lift.setTargetPosition(liftPos);
+        	robot.lift.setPower(0);
+        }
+        
+        // Use left and right bumpers to control the bridge servo
+        bridgePos = 0.5; //initialize bridge to desired position when games starts
+        
+        if (gamepad1.right_trigger > 0) { //raises bridge
+        	bridgePos += gamepad1.right_trigger / 50;
+        }
+        if (gamepad1.left_trigger > 0) { //lowers bridge
+        	bridgePos -= gamepad1.left_trigger / 50;
+        }
+        
+        bridgePos = Range.clip(bridgePos, 0, 0.5); //limits position value to between 0 and 0.5
+        robot.bridge.setPosition(bridgePos); //assigns servo to bridge value
 
         // Send telemetry message to signify robot running;
         telemetry.addData("Status", "Run Time: " + runtime.toString());

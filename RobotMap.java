@@ -50,7 +50,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-@disabled
 public class RobotMap
 {
     /* Public OpMode members. */
