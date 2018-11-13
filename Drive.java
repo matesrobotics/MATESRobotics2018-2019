@@ -39,7 +39,6 @@ public class Drive extends LinearOpMode {
     @Override
     public void runOpMode() {
         
-        double newTime = 0;
         leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
         rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
         lift = hardwareMap.get(DcMotor.class, "lift");
@@ -69,44 +68,35 @@ public class Drive extends LinearOpMode {
             telemetry.update();
 
             //Tank Driving Controls (left and right joystick)
-            double leftPower;
-            double rightPower;
-            
-            leftPower  = -gamepad1.left_stick_y ;
-            rightPower = gamepad1.right_stick_y ;
-
-            leftDrive.setPower(leftPower);
-            rightDrive.setPower(rightPower);
+            leftDrive.setPower(-gamepad1.left_stick_y);
+            rightDrive.setPower(gamepad1.right_stick_y);
             
             //Servo Control (activated by left and right bumpers)
-            bridgePos = 0.5;
+            bridgePos = 0.5; //initialize bridge to desired position when games starts
             
-            if (gamepad1.right_trigger > 0) {
+            if (gamepad1.right_trigger > 0) { //raises bridge
             	bridgePos += gamepad1.right_trigger / 50;
             }
-            
-            if (gamepad1.left_trigger > 0) {
+            if (gamepad1.left_trigger > 0) { //lowers bridge
             	bridgePos -= gamepad1.left_trigger / 50;
             }
             
-            bridgePos = Range.clip(bridgePos, 0, 0.5);
-            bridge.setPosition(bridgePos);
+            bridgePos = Range.clip(bridgePos, 0, 0.5); //limits position value to between 0 and 0.5
+            bridge.setPosition(bridgePos); //assigns servo to bridge value
             
             //Lift System for robot (activated by dpad up)
-            boolean raiseLift = gamepad1.dpad_up;
-            
-            if (raiseLift) {
+            if (gamepad1.dpad_up) { //if dpad-up is pressed, lift motor activates
             	lift.setTargetPosition(liftPos + 5);
             	lift.setPower(1);
-            } else {
+            } else { //if not pressed, stops motor
             	lift.setTargetPosition(liftPos);
             	lift.setPower(0);
             }
 
             //Feedback
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f), Lift Status (%.2f)", leftPower, rightPower, raiseLift);
-            telemetry.addData("Grabber Position: ", grabberPos);
+            telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f), Lift Status (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.dpad_up);
+            telemetry.addData("Grabber Position: ", bridgePos);
             telemetry.addData("Status", "Running");
             telemetry.update();
 
