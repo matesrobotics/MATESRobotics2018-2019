@@ -34,10 +34,7 @@ public class Drive extends LinearOpMode {
     private DcMotor leftDrive;
     private DcMotor rightDrive;
     private DcMotor lift;
-    
-    private Servo grabber;
-    
-    private ElapsedTime runtime = new ElapsedTime();
+    private Servo bridge;
 
     @Override
     public void runOpMode() {
@@ -46,8 +43,7 @@ public class Drive extends LinearOpMode {
         leftDrive = hardwareMap.get(DcMotor.class, "leftDrive");
         rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
         lift = hardwareMap.get(DcMotor.class, "lift");
-        grabber = hardwareMap.get(Servo.class, "grabber");
-
+        bridge = hardwareMap.get(Servo.class, "bridge");
 
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -58,11 +54,11 @@ public class Drive extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         
-        double grabberPos = 1;
-        grabber.setPosition(grabberPos);
+        double bridgePos = 1;
+        bridge.setPosition(bridgePos);
         
         int liftPos = 0;
-        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION); //initialize to run with encoder
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -83,34 +79,31 @@ public class Drive extends LinearOpMode {
             rightDrive.setPower(rightPower);
             
             //Servo Control (activated by left and right bumpers)
-            grabberPos = 0.5;
+            bridgePos = 0.5;
             
             if (gamepad1.right_trigger > 0) {
-            	grabberPos += gamepad1.right_trigger / 50;
+            	bridgePos += gamepad1.right_trigger / 50;
             }
             
             if (gamepad1.left_trigger > 0) {
-            	grabberPos -= gamepad1.left_trigger / 50;
+            	bridgePos -= gamepad1.left_trigger / 50;
             }
             
-            grabberPos = Range.clip(grabberPos, 0, 0.5);
-            
-            grabber.setPosition(grabberPos);
-            
+            bridgePos = Range.clip(bridgePos, 0, 0.5);
+            bridge.setPosition(bridgePos);
             
             //Lift System for robot (activated by dpad up)
             boolean raiseLift = gamepad1.dpad_up;
             
             if (raiseLift) {
             	lift.setTargetPosition(liftPos + 5);
-            	lift.setPower(1); //set power adjusts strength + speed of lift mechanism
-            	
+            	lift.setPower(1);
             } else {
             	lift.setTargetPosition(liftPos);
             	lift.setPower(0);
             }
 
-            // Show the elapsed game time and wheel power.
+            //Feedback
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f), Lift Status (%.2f)", leftPower, rightPower, raiseLift);
             telemetry.addData("Grabber Position: ", grabberPos);
@@ -122,10 +115,3 @@ public class Drive extends LinearOpMode {
     }
 
 }
-
-//hi this is brady
-//hi this is corbin
-//hi this is michael
-//hi this is ryan
-//hi this is logan
-// my nam jf
