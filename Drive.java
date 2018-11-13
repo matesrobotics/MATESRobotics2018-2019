@@ -58,7 +58,7 @@ public class Drive extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         
-        double grabberPos = 0;
+        double grabberPos = 1;
         grabber.setPosition(grabberPos);
         
         int liftPos = 0;
@@ -71,19 +71,20 @@ public class Drive extends LinearOpMode {
         while (opModeIsActive()) {
             telemetry.addData("Status", "Running");
             telemetry.update();
-//            if(gamepad1.right_trigger > 0 || gamepad1.left_trigger > 0){
-//                newTime = runtime.toDouble() + (5 / gamepad1.right_trigger);
-//            }
-//            
-//            if(runtime.toDouble() == newTime){
-//                grabberPos++;
-//            }
 
-            // Setup a variable for each drive wheel to save power level for telemetry
+            //Tank Driving Controls (left and right joystick)
             double leftPower;
             double rightPower;
             
-            //
+            leftPower  = -gamepad1.left_stick_y ;
+            rightPower = gamepad1.right_stick_y ;
+
+            leftDrive.setPower(leftPower);
+            rightDrive.setPower(rightPower);
+            
+            //Servo Control (activated by left and right bumpers)
+            grabberPos = 0.5;
+            
             if (gamepad1.right_trigger > 0) {
             	grabberPos += gamepad1.right_trigger / 50;
             }
@@ -92,34 +93,26 @@ public class Drive extends LinearOpMode {
             	grabberPos -= gamepad1.left_trigger / 50;
             }
             
-            grabberPos = Range.clip(grabberPos, 0, 1);
+            grabberPos = Range.clip(grabberPos, 0, 0.5);
             
             grabber.setPosition(grabberPos);
             
             
-            //lift system for robot (activated by dpad up)
+            //Lift System for robot (activated by dpad up)
             boolean raiseLift = gamepad1.dpad_up;
             
             if (raiseLift) {
             	lift.setTargetPosition(liftPos + 5);
-            	lift.setPower(0.3);
+            	lift.setPower(1); //set power adjusts strength + speed of lift mechanism
             	
             } else {
             	lift.setTargetPosition(liftPos);
             	lift.setPower(0);
             }
-            
-            //tank drive controls
-            leftPower  = -gamepad1.left_stick_y ;
-            rightPower = gamepad1.right_stick_y ;
-
-            // Send calculated power to wheels
-            leftDrive.setPower(leftPower);
-            rightDrive.setPower(rightPower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f)", leftPower, rightPower);
+            telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f), Lift Status (%.2f)", leftPower, rightPower, raiseLift);
             telemetry.addData("Grabber Position: ", grabberPos);
             telemetry.addData("Status", "Running");
             telemetry.update();
