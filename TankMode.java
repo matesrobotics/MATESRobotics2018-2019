@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.robotcontroller.external.samples;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -50,15 +50,20 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="Tank Mode")
-public class DriveAbstract extends OpMode{
+public class TankMode extends OpMode{
 
 	/* Declare OpMode members. */
 	RobotMap robot = new RobotMap(); // use the class created to define a Pushbot's hardware
+	private double bridgePos;
+	private int liftPos;
+	
+    private ElapsedTime runtime = new ElapsedTime();
 
 	@Override
 	public void init() {	// Code to run ONCE when the driver hits INIT
 		// Initialize the hardware variables.
 		robot.init(hardwareMap);
+		bridgePos = 1;
 
 		// Send telemetry message to signify robot waiting;
 		telemetry.addData("Say", "Hello Driver");
@@ -70,8 +75,9 @@ public class DriveAbstract extends OpMode{
 	
 	@Override
 	public void start() {	//Code to run ONCE when the driver hits PLAY
-		double bridgePos = 1; //sets bridge position all the way down
-		int liftPos = 0;
+		 //sets bridge position all the way down
+		liftPos = 0;
+		bridgePos = 0.5; //initialize bridge to desired position when games starts
 	}
 
 	@Override
@@ -91,7 +97,6 @@ public class DriveAbstract extends OpMode{
 		}
 
 		// Use left and right bumpers to control the bridge servo
-		bridgePos = 0.5; //initialize bridge to desired position when games starts
 
 		if (gamepad1.right_trigger > 0) { //raises bridge
 			bridgePos += gamepad1.right_trigger / 50;
@@ -105,7 +110,7 @@ public class DriveAbstract extends OpMode{
 
 		// Send telemetry message to signify robot running;
 		telemetry.addData("Status", "Run Time: " + runtime.toString());
-		telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f), Lift Status (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y, gamepad1.dpad_up);
+		telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y);
 		telemetry.addData("Bridge Position: ", bridgePos);
 		telemetry.addData("Status", "Running");
 		telemetry.update();
