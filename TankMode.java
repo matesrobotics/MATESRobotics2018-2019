@@ -28,7 +28,7 @@ public class TankMode extends OpMode{
         bridgePos = 1;
 
         //Send telemetry message to signify robot waiting;
-        telemetry.addData("v1.2.6", "Hello Driver!");
+        telemetry.addData("v1.2.7", "Hello Driver!");
     }
 
     @Override
@@ -72,7 +72,14 @@ public class TankMode extends OpMode{
 
         bridgePos = Range.clip(bridgePos, 0, 0.5); //limits position value to between 0 and 0.5
         robot.bridge.setPosition(bridgePos); //assigns servo to bridge value
-
+        
+        //conveyor belt
+        if (gamepad1.a) {
+        	robot.cBelt.setPower(0.5);
+        } else {
+        	robot.cBelt.setPower(0);
+        }
+        
         // Send telemetry message to signify robot running;
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f), Lift (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y, (double) lift);
