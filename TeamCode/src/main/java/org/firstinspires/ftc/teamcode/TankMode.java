@@ -50,7 +50,7 @@ public class TankMode extends OpMode{
 
         // Send telemetry message to signify robot running;
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y;
+        telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y);
         telemetry.addData("Current Lift Position", robot.lift.getCurrentPosition());
         telemetry.addData("Status", "Running");
         telemetry.update();
