@@ -46,7 +46,11 @@ public class TankMode extends OpMode{
             robot.lift.setPower(1);
         } else if (gamepad1.dpad_down) {
             robot.lift.setPower(-1);
+        } else {
+            robot.lift.setPower(0);
         }
+
+        //Use
 
         // Send telemetry message to signify robot running;
         telemetry.addData("Status", "Run Time: " + runtime.toString());
