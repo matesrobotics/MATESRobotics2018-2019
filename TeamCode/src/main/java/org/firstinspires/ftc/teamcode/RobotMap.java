@@ -49,7 +49,7 @@ public class RobotMap {
 
         // Define and initialize ALL installed servos.
         lid = hwMap.get(Servo.class, "lid");
-        lid.setPosition(1);
+        lid.setPosition(0.5);
     }
 }
 
