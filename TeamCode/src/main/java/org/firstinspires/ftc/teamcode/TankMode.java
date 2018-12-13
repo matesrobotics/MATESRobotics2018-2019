@@ -20,11 +20,11 @@ public class TankMode extends OpMode{
     @Override //Code to run ONCE when the driver hits INIT
     public void init() {
         //Initialize the hardware variables.
-            robot.init(hardwareMap);
+        robot.init(hardwareMap);
 
-    //Send telemetry message to signify robot waiting;
+        //Send telemetry message to signify robot waiting;
         telemetry.addData("v1.2.7", "Hello Driver!");
-}
+    }
 
     @Override
     public void init_loop() {    //Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
@@ -55,16 +55,21 @@ public class TankMode extends OpMode{
         //Use triggers to set armPos
         int armPos = 0;
 
-        armPos -= gamepad1.left_trigger * 5;
-        armPos += gamepad1.right_trigger * 5;
+        if (gamepad1.left_trigger != 0 || gamepad1.right_trigger != 0) {
+            armPos -= gamepad1.left_trigger * 5;
+            armPos += gamepad1.right_trigger * 5;
+        }
 
         robot.arm.setTargetPosition(armPos);
 
         //Use bumpers to set lidPos
-        int lidPos = 0;
+        double lidPos = 0;
 
-        lidPos -= gamepad1.left_trigger / 50;
-        lidPos += gamepad1.right_trigger / 50;
+        if (gamepad1.left_bumper) {
+            lidPos -= 0.1;
+        } else if (gamepad2.right_bumper) {
+            lidPos += 0.1;
+        }
 
         lidPos = Range.clip(lidPos,0, 1);
 
