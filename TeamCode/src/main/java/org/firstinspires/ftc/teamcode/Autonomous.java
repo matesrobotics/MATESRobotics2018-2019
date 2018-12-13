@@ -1,8 +1,15 @@
+package org.firstinspires.ftc.teamcode;
 
-public class Autonomous {
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+@Disabled
+public class Autonomous extends OpMode {
 }
     /* Declare OpMode members. */
-    HardwarePushbot robot   = new HardwarePushbot();   // Use a Pushbot's hardware
+    RobotMap robot   = new RobotMap();   // Use a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
 
 
