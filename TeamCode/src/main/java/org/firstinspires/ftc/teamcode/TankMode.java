@@ -58,12 +58,18 @@ public class TankMode extends OpMode{
         //Use triggers to set armPos
 
 
-        if (gamepad1.left_trigger != 0 || gamepad1.right_trigger != 0) {
-            armPos -= gamepad1.left_trigger * 5;
-            armPos += gamepad1.right_trigger * 5;
+//        if (gamepad1.left_trigger != 0 || gamepad1.right_trigger != 0) {
+//            armPos -= gamepad1.left_trigger * 5;
+//            armPos += gamepad1.right_trigger * 5;
+//        }
+
+        if(gamepad1.left_trigger > 0){
+            armPos -= gamepad1.left_trigger / 2;
+        } else if(gamepad1.right_trigger > 0){
+            armPos += gamepad1.right_trigger / 2;
         }
 
-        robot.arm.setTargetPosition(armPos);
+        robot.arm.setPower(armPos);
 
         //Use bumpers to set lidPos
         if (gamepad1.left_bumper) {

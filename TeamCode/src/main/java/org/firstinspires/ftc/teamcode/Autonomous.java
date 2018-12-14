@@ -1,74 +1,131 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Disabled
-public class Autonomous extends OpMode {
-}
-    /* Declare OpMode members. */
-    RobotMap robot   = new RobotMap();   // Use a Pushbot's hardware
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+@Autonomous
+
+
+
+public class Autonomous extends LinearOpMode {
+
+    RobotMap robot = new RobotMap(); // use the class created to define a Pushbot's hardware
+
     private ElapsedTime runtime = new ElapsedTime();
 
+    // todo: write your code here
 
-    static final double     FORWARD_SPEED = 0.6;
-    static final double     TURN_SPEED    = 0.5;
 
-    @Override
-    public void runOpMode() {
 
-        /*
-         * Initialize the drive system variables.
-         * The init() method of the hardware class does all the work here
-         */
-        robot.init(hardwareMap);
+    public void AutonomousMode() {
 
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Ready to run");    //
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 
-        // Step 1:  Drive forward for 3 seconds
-        robot.leftDrive.setPower(FORWARD_SPEED);
-        robot.rightDrive.setPower(FORWARD_SPEED);
+
+        //lower main body (equivalent to raising the scissor lift)
+
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
+
+        robot.lift.setPower(1);
+
+
+        while(opModeIsActive()&&runtime.seconds()<14) {
+
+//            robot.lift.setPower += 5;
+//
+//            if (liftPos % 2160 == 0) { //lift position is increased in half-revolution increments
+//
+//                i++;
+//
+//                lift = 2160 * i;
+//
+//            }
+//
+//            robot.lift.setTargetPosition(lift); //sets position to motor
+//
+//            robot.lift.setPower(1); //starts motor
+
         }
 
-        // Step 2:  Spin right for 1.3 seconds
-        robot.leftDrive.setPower(TURN_SPEED);
-        robot.rightDrive.setPower(-TURN_SPEED);
+        robot.lift.setPower(0);
+
+        //drive backwards at least 2 inches (I recommend 3 inches)
+
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.3)) {
-            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
+
+        robot.leftDrive.setPower(-1);
+
+        robot.rightDrive.setPower(-1);
+        while(opModeIsActive()&&runtime.seconds()<2) {
         }
 
-        // Step 3:  Drive Backwards for 1 Second
-        robot.leftDrive.setPower(-FORWARD_SPEED);
-        robot.rightDrive.setPower(-FORWARD_SPEED);
+
+
+
+        //lower scissor lift
+
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
-            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
+
+//        while(opModeIsActive()&&runtime.seconds()<5) {
+//
+//            liftPos -= 5;
+//
+//            if (liftPos % 2160 == 0) { //lift position is increased in half-revolution increments
+//
+//                i++;
+//
+//                lift = -2160 * i;
+//
+//            }
+//
+//            robot.lift.setTargetPosition(lift); //sets position to motor
+//
+//            robot.lift.setPower(1); //starts motor
+//
+//        }
+
+
+
+        //rotate entire robot (clockwise from above) approx. 90 degrees (move left track forward and right track backward)
+
+        runtime.reset()
+
+        while(opModeIsActive()&&runtime.seconds()<3) {
+
+            robot.leftDrive.setPower(1);
+
+            robot.rightDrive.setPower(-1);
+
         }
 
-        // Step 4:  Stop and close the claw.
-        robot.leftDrive.setPower(0);
-        robot.rightDrive.setPower(0);
-        robot.leftClaw.setPosition(1.0);
-        robot.rightClaw.setPosition(0.0);
 
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-        sleep(1000);
+
+        //drive backwards into crater (about 10 seconds of movement is good)
+
+        runtime.reset();
+
+        while(opModeIsActive()&&runtime.seconds()<10) {
+
+            robot.leftDrive.setPower(-1);
+
+            robot.rightDrive.setPower(-1);
+
+        }
+
     }
+
+
+
 }
