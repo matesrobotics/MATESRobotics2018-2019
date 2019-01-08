@@ -11,6 +11,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Tank Mode")
+@Disabled
+
 public class TankMode extends OpMode{
 
     RobotMap robot = new RobotMap(); // use the class created to define a Pushbot's hardware
@@ -28,7 +30,7 @@ public class TankMode extends OpMode{
         bridgePos = 1;
 
         //Send telemetry message to signify robot waiting;
-        telemetry.addData("v1.2.7", "Hello Driver!");
+        telemetry.addData("v1.3", "Hello Driver!");
     }
 
     @Override
@@ -38,47 +40,57 @@ public class TankMode extends OpMode{
     @Override //Code to run ONCE when the driver hits PLAY
     public void start() {    
         //sets bridge position all the way down
-        liftPos = 2100;
-        bridgePos = 0.5; //initialize bridge to desired position when games starts
-        robot.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-    }
+        //liftPos = 2100;
+      //  bridgePos = 0.5; //initialize bridge to desired position when games starts
+        //robot.lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    //    robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+   }
+
+//
 
     @Override //Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
     public void loop() {    
         
         //Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-        robot.leftDrive.setPower(-gamepad1.left_stick_y);
+        robot.leftDrive.setPower(gamepad1.left_stick_y);
         robot.rightDrive.setPower(gamepad1.right_stick_y);
 
         //Use Dpad-Up to run lift motor
         if (gamepad1.dpad_up) { //if dpad-up is pressed, lift position increases
-            liftPos += 5;
-            if (liftPos % 2160 == 0) { //lift position is increased in half-revolution increments
-                i++;
-                lift = 2160 * i;
-            }
+            //liftPos += 5;
+            //if (liftPos % 2160 == 0) { //lift position is increased in half-revolution increments
+              //  i++;
+            //    lift = 2160 * i;
+           // }
             robot.lift.setTargetPosition(lift); //sets position to motor
-            robot.lift.setPower(1); //starts motor
-        } 
+            robot.lift.setPower(1);//starts motor
+            robot.lift2.setPower(1);
+        } else if (gamepad1.dpad_down) {
+            robot.lift.setPower(-1);//starts motor
+            robot.lift2.setPower(-1);
+        } else {
+            robot.lift.setPower(0);
+            robot.lift2.setPower(0);
+        }
+        
 
         //Use left and right bumpers to control the bridge servo
-        if (gamepad1.right_trigger > 0) { //raises bridge
-            bridgePos += gamepad1.right_trigger / 50;
-        }
-        if (gamepad1.left_trigger > 0) { //lowers bridge
-            bridgePos -= gamepad1.left_trigger / 50;
-        }
+        //if (gamepad1.right_trigger > 0) { //raises bridge
+          //  bridgePos += gamepad1.right_trigger / 50;
+        //}
+        //if (gamepad1.left_trigger > 0) { //lowers bridge
+           // bridgePos -= gamepad1.left_trigger / 50;
+        //}
 
-        bridgePos = Range.clip(bridgePos, 0, 0.5); //limits position value to between 0 and 0.5
-        robot.bridge.setPosition(bridgePos); //assigns servo to bridge value
+        //bridgePos = Range.clip(bridgePos, 0, 0.5); //limits position value to between 0 and 0.5
+        //robot.bridge.setPosition(bridgePos); //assigns servo to bridge value
         
         //conveyor belt
-        if (gamepad1.a) {
-        	robot.cBelt.setPower(0.5);
-        } else {
-        	robot.cBelt.setPower(0);
-        }
+        // (gamepad1.a) {
+          //  robot.cBelt.setPower(0.5);
+        //} else {
+         //   robot.cBelt.setPower(0);
+        //}
         
         // Send telemetry message to signify robot running;
         telemetry.addData("Status", "Run Time: " + runtime.toString());
