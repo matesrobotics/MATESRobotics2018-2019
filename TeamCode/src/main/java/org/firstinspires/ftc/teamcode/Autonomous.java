@@ -23,15 +23,17 @@ public class Autonomous extends LinearOpMode {
     @Override
     public void runOpMode() {
         runtime.reset();
+
         robot.lift.setPower(1);
 
         while(runtime.seconds()<5) {
+            telemetry.
         }
-
         robot.lift.setPower(0);
 
         //drive backwards at least 2 inches (I recommend 3 inches)
         runtime.reset();
+        
         robot.leftDrive.setPower(-1);
         robot.rightDrive.setPower(-1);
 
