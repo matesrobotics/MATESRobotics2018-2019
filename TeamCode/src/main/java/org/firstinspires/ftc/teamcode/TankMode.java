@@ -58,9 +58,9 @@ public class TankMode extends OpMode{
 
         //Use bumpers to set lidPos
         if (gamepad1.left_bumper) {
-            lidPos -= 0.1;
+            lidPos = 1;
         } else if (gamepad1.right_bumper) {
-            lidPos += 0.1;
+            lidPos = 1;
         }
 
         lidPos = Range.clip(lidPos, 0, 1);
