@@ -1,9 +1,6 @@
 // Copyright 2018-2019 FIRST Tech Challenge Team 12365
-
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -15,7 +12,6 @@ public class TankMode extends OpMode{
 
     double lidPos = 0;
     RobotMap robot = new RobotMap(); // use the class created to define a Pushbot's hardware
-
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override //Code to run ONCE when the driver hits INIT
@@ -27,7 +23,7 @@ public class TankMode extends OpMode{
     }
 
     @Override
-    public void init_loop() {    //Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+    public void init_loop() { //Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
     }
 
     @Override //Code to run ONCE when the driver hits PLAY
