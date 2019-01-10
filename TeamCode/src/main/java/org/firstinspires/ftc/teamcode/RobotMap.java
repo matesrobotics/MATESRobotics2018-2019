@@ -2,8 +2,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class RobotMap {
@@ -14,6 +16,7 @@ public class RobotMap {
     public DcMotor lift = null;
     public DcMotor arm = null;
     public Servo lid = null;
+    public DigitalChannel touch = null;
 
     /* local OpMode members. */
     private ElapsedTime period  = new ElapsedTime();
@@ -37,7 +40,7 @@ public class RobotMap {
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
         arm.setDirection(DcMotor.Direction.FORWARD);
 
-        // Set all motors to zero power
+        //Set all motors to zero power
         leftDrive.setPower(0);
         rightDrive.setPower(0);
         lift.setPower(0);
@@ -50,6 +53,11 @@ public class RobotMap {
 
         // Define and initialize ALL installed servos.
         lid = hwMap.get(Servo.class, "lid");
+
+        // Define and initialize sensors
+        touch = hwMap.get(DigitalChannel.class, "touch");
+        touch.setMode(DigitalChannel.Mode.INPUT);
+        //
 
     }
 }
