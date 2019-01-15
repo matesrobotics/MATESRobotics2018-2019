@@ -57,7 +57,7 @@ public class RobotMap {
         // Define and initialize sensors
         touch = hwMap.get(DigitalChannel.class, "touch");
         touch.setMode(DigitalChannel.Mode.INPUT);
-        //
+
 
     }
 }
