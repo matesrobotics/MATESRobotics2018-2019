@@ -38,19 +38,24 @@ public class Auto extends LinearOpMode {
         runtime.reset();
         robot.leftDrive.setPower(-1);
         robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds()<0.5) {
+        while(opModeIsActive() && runtime.seconds()<0.215) {
             telemetry.addData("Backing Up!", runtime);
             telemetry.update();
         }
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
 
+        runtime.reset();
+        while(opModeIsActive() && runtime.seconds()< 1) {
+
+        }
+
         //rotate entire robot (clockwise from above) approx. 90 degrees (move left track forward and right track backward)
         runtime.reset();
         double rotation = 3.66666; // time it takes robot to rotate ones
-        robot.leftDrive.setPower(1);
-        robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds()< 0.900) {
+        robot.leftDrive.setPower(-1);
+        robot.rightDrive.setPower(1);
+        while(opModeIsActive() && runtime.seconds()< rotation) {
             telemetry.addData("Rotating!", runtime);
             telemetry.update();
         }
@@ -58,15 +63,28 @@ public class Auto extends LinearOpMode {
         robot.rightDrive.setPower(0);
 
         //drive backwards into crater (about 10 seconds of movement is good)
+        //Note: it's only 1 second for now for easier testing
         runtime.reset();
         robot.leftDrive.setPower(-1);
         robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds()< 1) {
+        while(opModeIsActive() && runtime.seconds()< 4) {
             telemetry.addData("Backing Up!", runtime);
             telemetry.update();
         }
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
+
+        //Go down at the end
+        runtime.reset();
+        robot.lift.setPower(-1);
+        while(opModeIsActive() && runtime.seconds()<20) {
+            telemetry.addData("Lowering!", runtime);
+            telemetry.update();
+            if (robot.touch.getState()) {
+                break;
+            }
+        }
+        robot.lift.setPower(0);
     }
 }
 
