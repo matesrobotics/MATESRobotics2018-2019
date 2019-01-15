@@ -28,8 +28,8 @@ public class Auto extends LinearOpMode {
         robot.init(hardwareMap);
         runtime.reset();
         robot.lift.setPower(1);
-        while(opModeIsActive() && runtime.seconds()<15) {
-            telemetry.addData("Lowering!", runtime);
+        while(opModeIsActive() && runtime.seconds()<12.5) {
+            telemetry.addData("Raising!", runtime);
             telemetry.update();
         }
         robot.lift.setPower(0);
