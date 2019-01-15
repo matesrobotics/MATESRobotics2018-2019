@@ -28,7 +28,7 @@ public class Auto extends LinearOpMode {
         robot.init(hardwareMap);
         runtime.reset();
         robot.lift.setPower(1);
-        while(opModeIsActive() && runtime.seconds()<12.5) {
+        while(opModeIsActive() && runtime.seconds()<13) {
             telemetry.addData("Raising!", runtime);
             telemetry.update();
         }
@@ -38,7 +38,7 @@ public class Auto extends LinearOpMode {
         runtime.reset();
         robot.leftDrive.setPower(-1);
         robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds()<1) {
+        while(opModeIsActive() && runtime.seconds()<0.5) {
             telemetry.addData("Backing Up!", runtime);
             telemetry.update();
         }
@@ -50,7 +50,7 @@ public class Auto extends LinearOpMode {
         double rotation = 3.66666; // time it takes robot to rotate ones
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds()< rotation / 4) {
+        while(opModeIsActive() && runtime.seconds()< 0.900) {
             telemetry.addData("Rotating!", runtime);
             telemetry.update();
         }
@@ -61,7 +61,7 @@ public class Auto extends LinearOpMode {
         runtime.reset();
         robot.leftDrive.setPower(-1);
         robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds()< 5) {
+        while(opModeIsActive() && runtime.seconds()< 1) {
             telemetry.addData("Backing Up!", runtime);
             telemetry.update();
         }
