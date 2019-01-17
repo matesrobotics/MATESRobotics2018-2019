@@ -17,6 +17,7 @@ public class TankMode extends OpMode{
     public void init() {
         // Initialize the hardware variables.
         robot.init(hardwareMap);
+
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Last Modified: January 10, 2019", "Hello MATES Driver!");
     }
@@ -58,6 +59,7 @@ public class TankMode extends OpMode{
 
         // Use bumpers to set lidPos
         double lidPos = 0;
+
         if (gamepad1.left_bumper) {
             lidPos = 0;
         } else if (gamepad1.right_bumper) {
@@ -73,6 +75,7 @@ public class TankMode extends OpMode{
         } else {
             telemetry.addData("Lift Limit", "ACTIVE");
         }
+
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y);
         telemetry.addData("Current Arm Position", "Left (%.2f), Right (%.2f)", gamepad1.left_trigger, gamepad1.right_trigger);

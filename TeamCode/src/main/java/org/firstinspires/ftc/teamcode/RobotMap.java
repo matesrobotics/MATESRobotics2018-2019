@@ -5,11 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class RobotMap {
-
     /* Public OpMode members. */
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
@@ -19,7 +16,6 @@ public class RobotMap {
     public DigitalChannel touch = null;
 
     /* local OpMode members. */
-    private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
     public RobotMap(){
@@ -27,37 +23,31 @@ public class RobotMap {
 
     /* Initialize standard Hardware interfaces */
     public void init(HardwareMap hwMap) {
-
-        // Save reference to Hardware map
-
         // Define and Initialize Motors
         leftDrive = hwMap.get(DcMotor.class, "leftDrive");
-        rightDrive = hwMap.get(DcMotor.class, "rightDrive");
-        lift = hwMap.get(DcMotor.class, "lift");
-        arm = hwMap.get(DcMotor.class, "arm");
-
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
-        arm.setDirection(DcMotor.Direction.FORWARD);
-
-        //Set all motors to zero power
+        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftDrive.setPower(0);
+
+        rightDrive = hwMap.get(DcMotor.class, "rightDrive");
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setPower(0);
+
+        lift = hwMap.get(DcMotor.class, "lift");
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         lift.setPower(0);
 
-        // Set all motors to run with or without encoders.
-        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        arm = hwMap.get(DcMotor.class, "arm");
+        arm.setDirection(DcMotor.Direction.FORWARD);
         arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // Define and initialize ALL installed servos.
+        // Define and initialize all installed servos.
         lid = hwMap.get(Servo.class, "lid");
 
         // Define and initialize sensors
         touch = hwMap.get(DigitalChannel.class, "touch");
         touch.setMode(DigitalChannel.Mode.INPUT);
-
 
     }
 }
