@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name="Tank Mode")
 public class TankMode extends OpMode{
 
+    double lidPos = 1;
     RobotMap robot = new RobotMap(); // use the class created to define a Pushbot's hardware
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -17,7 +18,6 @@ public class TankMode extends OpMode{
     public void init() {
         // Initialize the hardware variables.
         robot.init(hardwareMap);
-
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Last Modified: January 10, 2019", "Hello MATES Driver!");
     }
@@ -58,8 +58,6 @@ public class TankMode extends OpMode{
         }
 
         // Use bumpers to set lidPos
-        double lidPos = 0;
-
         if (gamepad1.left_bumper) {
             lidPos = 0;
         } else if (gamepad1.right_bumper) {
@@ -69,13 +67,14 @@ public class TankMode extends OpMode{
         lidPos = Range.clip(lidPos, 0, 1);
         robot.lid.setPosition(lidPos);
 
-        // Send telemetry message to signify robot running;
-        if (!robot.touch.getState()) {
-            telemetry.addData("Lift Limit", "Not Active");
-        } else {
-            telemetry.addData("Lift Limit", "ACTIVE");
-        }
+        // test touch sensor
+         if (robot.touch.getState()) {
+                        telemetry.addData("Digital Touch", "Is Pressed");
+                    } else {
+                        telemetry.addData("Digital Touch", "Is Not Pressed");
+                    }
 
+        // Send telemetry message to signify robot running;
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y);
         telemetry.addData("Current Arm Position", "Left (%.2f), Right (%.2f)", gamepad1.left_trigger, gamepad1.right_trigger);
