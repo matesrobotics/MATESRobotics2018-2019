@@ -22,6 +22,8 @@ public class Auto extends LinearOpMode {
 
     //}
 
+    //Just testing if I set Android Studio up correctly don't mind me ~Brady
+
     @Override
     public void runOpMode() {
 
