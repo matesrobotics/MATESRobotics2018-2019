@@ -68,14 +68,14 @@ public class TankMode extends OpMode{
         robot.lid.setPosition(lidPos);
 
         // test touch sensor
-         if (robot.touch.getState()) {
-                        telemetry.addData("Digital Touch", "Is Pressed");
-                    } else {
-                        telemetry.addData("Digital Touch", "Is Not Pressed");
-                    }
-                    
-        
-    //This is the toggle for the lift, it's creating problems with the regular lift
+        if (robot.touch.getState()) {
+            telemetry.addData("Digital Touch", "Is Pressed");
+        } else {
+            telemetry.addData("Digital Touch", "Is Not Pressed");
+        }
+
+
+        //This is the toggle for the lift, it's creating problems with the regular lift
         // if (gamepad1.dpad_right) { //if dpad-up is pressed, lift position increases
         //     runtime.reset();
         //     while(runtime.seconds()<14){
