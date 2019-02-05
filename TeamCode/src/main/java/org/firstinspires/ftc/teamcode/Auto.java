@@ -16,11 +16,10 @@ public class Auto extends LinearOpMode {
     RobotMap robot = new RobotMap();
     double lidPos = 1;
 
-    //I have no idea why these comments below are here but I'm leaving them anyway
-    //@Override
-    //Code to run ONCE when the driver hits INIT
+    //@Override //Code to run ONCE when the driver hits INIT
     //public void init() {
     //  robot.init(hardwareMap);
+
     //}
 
     @Override
@@ -28,7 +27,6 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
 
-        //Lowers robot to ground from hook
         robot.init(hardwareMap);
         runtime.reset();
         robot.lift.setPower(1);
@@ -38,7 +36,7 @@ public class Auto extends LinearOpMode {
         }
         robot.lift.setPower(0);
 
-        //Backs robot away from hook
+        //drive backwards at least 2 inches (I recommend 3 inches)
         runtime.reset();
         robot.leftDrive.setPower(-1);
         robot.rightDrive.setPower(-1);
@@ -49,25 +47,25 @@ public class Auto extends LinearOpMode {
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
 
-        //Waits after backing up
         runtime.reset();
         while(opModeIsActive() && runtime.seconds()< 1) {
-            
+
         }
 
-        //Rotates robot (clockwise from above) approx. 90 degrees (move left track forward and right track backward)
+        //rotate entire robot (clockwise from above) approx. 90 degrees (move left track forward and right track backward)
         runtime.reset();
-        double rotation = 3.66666; // Approx. time it takes robot to rotate 360 degrees
+        double rotation = 3.66666; // time it takes robot to rotate 360 degrees
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds()< .9) { //This is a decimal so it's easier to modify slightly
+        while(opModeIsActive() && runtime.seconds()< .9) {
             telemetry.addData("Rotating!", runtime);
             telemetry.update();
         }
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
 
-        //Drives to front of depot
+        //drive backwards into crater (about 10 seconds of movement is good)
+        //Note: it's only 1 second for now for easier testing
         runtime.reset();
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(1);
@@ -77,8 +75,8 @@ public class Auto extends LinearOpMode {
         }
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
-        
-        //Swings arm in front of robot
+
+        //Using arm to get Around
         runtime.reset();
         robot.arm.setPower(.5);
         while(opModeIsActive() && runtime.seconds()<1) {
@@ -88,16 +86,14 @@ public class Auto extends LinearOpMode {
         robot.arm.setPower(0);
         robot.arm.setPower(0);
 
-        //Waits after moving arm
         runtime.reset();
         while(opModeIsActive() && runtime.seconds()<0.5) {
             telemetry.addData("Waiting!", runtime);
             telemetry.update();
         }
-        
-        
-        //Lowers before releasing team marker
-        //NOTE: The robot.touch.getState() section each time the bot lowers is the Currie switch
+
+
+        //Go down at the end
         runtime.reset();
         robot.lift.setPower(-1);
         while(opModeIsActive() && runtime.seconds()<5) {
@@ -108,11 +104,10 @@ public class Auto extends LinearOpMode {
             }
         }
 
-        //Opens lid
         lidPos = 0;
+
         robot.lid.setPosition(lidPos);
 
-        //Lowers slightly more while team marker is falling out
         runtime.reset();
         while(opModeIsActive() && runtime.seconds()<1) {
             telemetry.addData("Lowering 2!", runtime);
@@ -121,12 +116,10 @@ public class Auto extends LinearOpMode {
                 break;
             }
         }
-
-        //Closes lid
         lidPos = 1;
+
         robot.lid.setPosition(lidPos);
 
-        //Lowers until end of autonomous period
         while(opModeIsActive() && runtime.seconds()<11) {
             telemetry.addData("Lowering 3!", runtime);
             telemetry.update();
@@ -135,6 +128,6 @@ public class Auto extends LinearOpMode {
             }
         }
         robot.lift.setPower(0);
-}
+    }
 }
 

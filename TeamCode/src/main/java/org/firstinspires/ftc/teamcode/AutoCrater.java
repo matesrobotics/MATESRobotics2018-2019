@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
 
-public class Auto extends LinearOpMode {
+public class AutoCrater extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     RobotMap robot = new RobotMap();
     double lidPos = 1;
@@ -49,7 +49,7 @@ public class Auto extends LinearOpMode {
 
         runtime.reset();
         while(opModeIsActive() && runtime.seconds()< 1) {
-            
+
         }
 
         //rotate entire robot (clockwise from above) approx. 90 degrees (move left track forward and right track backward)
@@ -69,57 +69,57 @@ public class Auto extends LinearOpMode {
         runtime.reset();
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(1);
-        while(opModeIsActive() && runtime.seconds()< 2.8) {
+        while(opModeIsActive() && runtime.seconds()< 2.3) {
             telemetry.addData("Going Forward!", runtime);
             telemetry.update();
         }
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
-        
+
         //Using arm to get Around
-        runtime.reset();
-        robot.arm.setPower(.5);
-        while(opModeIsActive() && runtime.seconds()<1) {
-            telemetry.addData("Arm Active!", runtime);
-            telemetry.update();
-        }
-        robot.arm.setPower(0);
-        robot.arm.setPower(0);
-        
-        runtime.reset();
-        while(opModeIsActive() && runtime.seconds()<0.5) {
-            telemetry.addData("Waiting!", runtime);
-            telemetry.update();
-        }
-        
-        
-        //Go down at the end
-        runtime.reset();
-        robot.lift.setPower(-1);
-        while(opModeIsActive() && runtime.seconds()<5) {
-            telemetry.addData("Lowering 1!", runtime);
-            telemetry.update();
-            if (robot.touch.getState()) {
-                break;
-            }
-        }
-        
-       lidPos = 0;
-        
-        robot.lid.setPosition(lidPos);
-        
-        runtime.reset();
-        while(opModeIsActive() && runtime.seconds()<1) {
-            telemetry.addData("Lowering 2!", runtime);
-            telemetry.update();
-            if (robot.touch.getState()) {
-                break;
-            }
-        }
-        lidPos = 1;
-        
-        robot.lid.setPosition(lidPos);
- 
+        //     runtime.reset();
+        //     robot.arm.setPower(.5);
+        //     while(opModeIsActive() && runtime.seconds()<1) {
+        //         telemetry.addData("Arm Active!", runtime);
+        //         telemetry.update();
+        //     }
+        //     robot.arm.setPower(0);
+        //     robot.arm.setPower(0);
+
+        //     runtime.reset();
+        //     while(opModeIsActive() && runtime.seconds()<0.5) {
+        //         telemetry.addData("Waiting!", runtime);
+        //         telemetry.update();
+        //     }
+
+
+        //     //Go down at the end
+        //     runtime.reset();
+        //     robot.lift.setPower(-1);
+        //     while(opModeIsActive() && runtime.seconds()<5) {
+        //         telemetry.addData("Lowering 1!", runtime);
+        //         telemetry.update();
+        //         if (robot.touch.getState()) {
+        //             break;
+        //         }
+        //     }
+
+        //   lidPos = 0;
+
+        //     robot.lid.setPosition(lidPos);
+
+        //     runtime.reset();
+        //     while(opModeIsActive() && runtime.seconds()<1) {
+        //         telemetry.addData("Lowering 2!", runtime);
+        //         telemetry.update();
+        //         if (robot.touch.getState()) {
+        //             break;
+        //         }
+        //     }
+        //     lidPos = 1;
+
+        //     robot.lid.setPosition(lidPos);
+
         while(opModeIsActive() && runtime.seconds()<11) {
             telemetry.addData("Lowering 3!", runtime);
             telemetry.update();
@@ -128,6 +128,6 @@ public class Auto extends LinearOpMode {
             }
         }
         robot.lift.setPower(0);
-}
+    }
 }
 
