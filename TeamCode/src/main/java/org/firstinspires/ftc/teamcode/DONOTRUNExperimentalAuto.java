@@ -154,6 +154,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
         }    
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
+    }
 
     public void pause(int time) {
         runtime.reset();
