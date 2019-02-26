@@ -152,14 +152,14 @@ public class Drop extends LinearOpMode {
         robot.rightDrive.setPower(0);
         
         //Using arm to get Around
-        // runtime.reset();
-        // robot.arm.setPower(.5);
-        // while(opModeIsActive() && runtime.seconds()<1.1) {
-        //     telemetry.addData("Arm Active!", runtime);
-        //     telemetry.update();
+        runtime.reset();
+        robot.arm.setPower(.5);
+        while(opModeIsActive() && runtime.seconds()<1.1) {
+            telemetry.addData("Arm Active!", runtime);
+            telemetry.update();
             
-        // }
-        // robot.arm.setPower(0);
+        }
+        robot.arm.setPower(0);
         
         // lidPos = 0;
         // robot.lid.setPosition(lidPos); //opens

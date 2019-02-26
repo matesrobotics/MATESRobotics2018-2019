@@ -72,7 +72,7 @@ public class Auto extends LinearOpMode {
             }
             if (robot.touch.getState()) {
                 telemetry.addData("Digital Touch", "Is Not Pressed");
-            } else {    
+            } else {
                 telemetry.addData("Digital Touch", "Is Pressed");
             }
         }
@@ -157,6 +157,7 @@ public class Auto extends LinearOpMode {
         while(opModeIsActive() && runtime.seconds()<1.1) {
             telemetry.addData("Arm Active!", runtime);
             telemetry.update();
+            
         }
         robot.arm.setPower(0);
         
@@ -230,6 +231,7 @@ public class Auto extends LinearOpMode {
         robot.lift.setPower(0);
         
         runtime.reset();
+        
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(-1);
         while(opModeIsActive() && runtime.seconds()< 1.5) {
