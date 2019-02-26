@@ -16,11 +16,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class ExperimentalTest extends LinearOpMode { //I might be able to put this class in another file, idk but that'd be great
     private ElapsedTime runtime = new ElapsedTime(); //Also note, I may still need to add the WhileOpModeIsActive to every loop
     RobotMap robot = new RobotMap();
+    double lidPos = 1;
 
-    public void downLift(int time) {
+    public void downLift(double time) {
         runtime.reset();
         robot.lift.setPower(-1);
-        while(opModeIsActive() && runtime.seconds < time) {
+        while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Retracting Body!",runtime);
             telemetry.update();
             if(robot.touch.getState()) {
@@ -30,101 +31,101 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         }    
     }
 
-    public void upLift(int time) {
+    public void upLift(double time) {
         runtime.reset();
         robot.lift.setPower(1);
-        while(opModeIsActive() && runtime.seconds < time) {
+        while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Extending Body!",runtime);
             telemetry.update();
             }
         robot.lift.setPower(0);
     }    
 
-    public void hookOut(int time) {
+    public void hookOut(double time) {
         runtime.reset();
         robot.hook.setPower(-1);
-        while(opModeIsActive() && runtime.seconds < time) {
+        while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Rotating Hook Out!", runtime);
             telemetry.update();
         }
         robot.hook.setPower(0);
     }
     
-    public void hookIn(int time) {
+    public void hookIn(double time) {
         runtime.reset();
         robot.hook.setPower(1);
-        while(opModeIsActive() && runtime.seconds < time) {
+        while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Rotating Hook In!", runtime);
             telemetry.update();
         }
         robot.hook.setPower(0);
     }
 
-    public void rightForward(int time) {
+    public void rightForward(double time) {
         runtime.reset();
         robot.rightDrive.setPower(1);
-        while(opModeIsActive() && runtime.seconds < time) {
-            telemetry.addData("Moving Right Tread Forward!", runime);
+        while(opModeIsActive() && runtime.seconds() < time) {
+            telemetry.addData("Moving Right Tread Forward!", runtime);
             telemetry.update();
         }
         robot.rightDrive.setPower(0);
     }
 
-    public void rightBackward(int time) {
+    public void rightBackward(double time) {
         runtime.reset();
         robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds < time) {
-            telemetry.addData("Moving Right Tread Backward!", runime);
+        while(opModeIsActive() && runtime.seconds() < time) {
+            telemetry.addData("Moving Right Tread Backward!", runtime);
             telemetry.update();
         }
         robot.rightDrive.setPower(0);
     }
 
-    public void leftForward(int time) {
+    public void leftForward(double time) {
         runtime.reset();
         robot.leftDrive.setPower(1);
-        while(opModeIsActive() && runtime.seconds < time) {
-            telemetry.addData("Moving Left Tread Forward!", runime);
+        while(opModeIsActive() && runtime.seconds() < time) {
+            telemetry.addData("Moving Left Tread Forward!", runtime);
             telemetry.update();
         }
         robot.leftDrive.setPower(0);
     }
 
-    public void leftBackward(int time) {
+    public void leftBackward(double time) {
         runtime.reset();
         robot.leftDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds < time) {
-            telemetry.addData("Moving Left Tread Backward!", runime);
+        while(opModeIsActive() && runtime.seconds() < time) {
+            telemetry.addData("Moving Left Tread Backward!", runtime);
             telemetry.update();
         }
         robot.leftDrive.setPower(0);
     }
 
-    public void armForward(int time) {
+    public void armForward(double time) {
         runtime.reset();
         robot.arm.setPower(0.5); //Note I don't know which way is positive or negative
-        while(opModeIsActive() && runtime.seconds < time) {
+        while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Arm Forward!", runtime);
             telemetry.update();
         }
         robot.arm.setPower(0);
     }
 
-    public void armBackward(int time) {
+    public void armBackward(double time) {
         runtime.reset();
         robot.arm.setPower(-0.5); //Note I don't know which way is positive or negative
-        while(opModeIsActive() && runtime.seconds < time) {
+        while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Arm Backward!", runtime);
             telemetry.update();
         }
         robot.arm.setPower(0);
     }
 
-    public void rotateLeft(int time) {
+    public void rotateLeft(double time) {
         runtime.reset();
         robot.rightDrive.setPower(1);
         robot.leftDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds < time) {
+        while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Rotating Left!", runtime);
             telemetry.update();
         }    
@@ -132,11 +133,11 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         robot.rightDrive.setPower(0);
     }
 
-    public void rotateRight(int time) {
+    public void rotateRight(double time) {
         runtime.reset();
         robot.rightDrive.setPower(-1);
         robot.leftDrive.setPower(1);
-        while(opModeIsActive() && runtime.seconds < time) {
+        while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Rotating Right!", runtime);
             telemetry.update();
         }    
@@ -144,11 +145,11 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         robot.rightDrive.setPower(0);
     }
 
-    public void goForward(int time) {
+    public void goForward(double time) {
         runtime.reset();
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(1);
-        while(opModeIsActive() && runtime.seconds < time) {
+        while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Driving Forward!", runtime);
             telemetry.update();
         }    
@@ -156,11 +157,11 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         robot.rightDrive.setPower(0);
     }
 
-    public void goBackward(int time) {
+    public void goBackward(double time) {
         runtime.reset();
         robot.leftDrive.setPower(-1);
         robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds < time) {
+        while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Driving Backward!", runtime);
             telemetry.update();
         }    
@@ -168,9 +169,9 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         robot.rightDrive.setPower(0);
     }
 
-    public void pause(int time) {
+    public void pause(double time) {
         runtime.reset();
-        while(opModeIsActive() && runtime.seconds < time) {
+        while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Waiting!", runtime);
             telemetry.update();
         }
@@ -188,7 +189,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
 
 
     public void runOpMode() {
-        waitforstart();
+        waitForStart();
         robot.init(hardwareMap);
         lidPos = 1;  //sets lid position to close
         robot.lid.setPosition(lidPos);
