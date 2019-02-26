@@ -24,7 +24,7 @@ public class DropExperimental extends LinearOpMode { //I might be able to put th
         while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Retracting Body!",runtime);
             telemetry.update();
-            if(robot.touch.getState()) {
+            if(!robot.touch.getState()) {
                 break;
             }
         robot.lift.setPower(0);

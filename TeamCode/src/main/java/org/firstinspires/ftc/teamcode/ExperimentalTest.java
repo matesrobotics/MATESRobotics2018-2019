@@ -24,7 +24,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Retracting Body!",runtime);
             telemetry.update();
-            if(robot.touch.getState()) {
+            if(!robot.touch.getState()) {
                 break;
             }
         robot.lift.setPower(0);
@@ -194,8 +194,15 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         lidPos = 1;  //sets lid position to close
         robot.lid.setPosition(lidPos);
         
-        downLift(5);
-        pause(0.2);
+        goForward(3);
+        goBackward(3);
+        rightForward(3);
+        leftBackward(3);
+        
+        
+        /* downLift(10);
+        pause(2);
+        upLift(4);
         upLift(3);
         pause(2);
        
@@ -225,7 +232,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         pause(0.3);
         closeLid();
         armBackward(0.5);
-        pause(0.5);
+        pause(0.5); */
     }
 }
 
