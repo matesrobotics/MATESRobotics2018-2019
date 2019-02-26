@@ -154,6 +154,19 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
         }    
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
+    }
+
+    public void goBackward(int time) {
+        runtime.reset();
+        robot.leftDrive.setPower(-1);
+        robot.rightDrive.setPower(-1);
+        while(opModeIsActive() && runtime < time) {
+            telemetry.addData("Driving Backward!", runtime);
+            telemetry.update();
+        }    
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
+    }
 
     public void pause(int time) {
         runtime.reset();
@@ -161,6 +174,16 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
             telemetry.addData("Waiting!", runtime);
             telemetry.update();
         }
+    }
+
+    public void closeLid() {
+        lidPos = 1;
+        robot.lid.setPosition(lidPos); //closes
+    }
+
+    public void openLid() {
+        lidPos = 0;
+        robot.lid.setPosition(lidPos); //opens
     }
 } //ends class
 
@@ -172,34 +195,36 @@ public class Auto extends Methods { //I'm not sure if the whole 2 classes thing 
         lidPos = 1;  //sets lid position to close
         robot.lid.setPosition(lidPos);
         
-        downLift(11);
-        hookOut(0.1);
-        pause(0.1);
-        downLift(5.5);
-        rightForward(0.4);
+        downLift(5);
+        upLift(3);
+        pause(2);
        
-        rightBackward(0.25); //jerk
-        rightForward(0.25);
-        rightBackward(0.25);
-        pause(0.2);
+        rightForward(0.5);
+        pause(0.3);
+        rightBackward(0.5);
+        pause(0.3);
+
+        leftForward(0.5);
+        pause(0.3);
+        leftBackward(0.5);
+        pause(0.3);
 
         rotateRight(0.75);
+        pause(0.3);
+        rotateLeft(0.75);
+        pause(0.3);
 
-        goForward(1.8);
-        armForward(1.1);
+        goForward(1);
+        pause(0.3);
+        goBackward(1);
+        pause(0.3);
+        
+        armForward(0.8);
+        pause(0.1);
+        openLid();
+        pause(0.3);
+        closeLid();
+        armBackward(0.5);
         pause(0.5);
-        armBackward(0.2);
-        pause(0.2);
-        pause(1);
-
-        lidPos = 1;
-        robot.lid.setPosition(lidPos); //closes
-
-        downLift(2);
-        rotateRight(1.5);
-        goForward(4);
-
-        robot.lift.setPower(0);
-
     }
 }
