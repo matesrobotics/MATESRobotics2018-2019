@@ -20,7 +20,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
     public void downLift(int time) {
         runtime.reset();
         robot.lift.setPower(-1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Retracting Body!",runtime);
             telemetry.update();
             if(robot.touch.getState()) {
@@ -33,7 +33,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
     public void upLift(int time) {
         runtime.reset();
         robot.lift.setPower(1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Extending Body!",runtime);
             telemetry.update();
             }
@@ -43,7 +43,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
     public void hookOut(int time) {
         runtime.reset();
         robot.hook.setPower(-1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Rotating Hook Out!", runtime);
             telemetry.update();
         }
@@ -53,7 +53,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
     public void hookIn(int time) {
         runtime.reset();
         robot.hook.setPower(1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Rotating Hook In!", runtime);
             telemetry.update();
         }
@@ -63,7 +63,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
     public void rightForward(int time) {
         runtime.reset();
         robot.rightDrive.setPower(1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Moving Right Tread Forward!", runime);
             telemetry.update();
         }
@@ -73,7 +73,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
     public void rightBackward(int time) {
         runtime.reset();
         robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Moving Right Tread Backward!", runime);
             telemetry.update();
         }
@@ -83,7 +83,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
     public void leftForward(int time) {
         runtime.reset();
         robot.leftDrive.setPower(1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Moving Left Tread Forward!", runime);
             telemetry.update();
         }
@@ -93,7 +93,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
     public void leftBackward(int time) {
         runtime.reset();
         robot.leftDrive.setPower(-1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Moving Left Tread Backward!", runime);
             telemetry.update();
         }
@@ -103,7 +103,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
     public void armForward(int time) {
         runtime.reset();
         robot.arm.setPower(0.5); //Note I don't know which way is positive or negative
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Arm Forward!", runtime);
             telemetry.update();
         }
@@ -113,7 +113,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
     public void armBackward(int time) {
         runtime.reset();
         robot.arm.setPower(-0.5); //Note I don't know which way is positive or negative
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Arm Backward!", runtime);
             telemetry.update();
         }
@@ -124,7 +124,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
         runtime.reset();
         robot.rightDrive.setPower(1);
         robot.leftDrive.setPower(-1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Rotating Left!", runtime);
             telemetry.update();
         }    
@@ -136,7 +136,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
         runtime.reset();
         robot.rightDrive.setPower(-1);
         robot.leftDrive.setPower(1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Rotating Right!", runtime);
             telemetry.update();
         }    
@@ -148,7 +148,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
         runtime.reset();
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Driving Forward!", runtime);
             telemetry.update();
         }    
@@ -160,7 +160,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
         runtime.reset();
         robot.leftDrive.setPower(-1);
         robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Driving Backward!", runtime);
             telemetry.update();
         }    
@@ -170,7 +170,7 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
 
     public void pause(int time) {
         runtime.reset();
-        while(opModeIsActive() && runtime < time) {
+        while(opModeIsActive() && runtime.seconds < time) {
             telemetry.addData("Waiting!", runtime);
             telemetry.update();
         }
