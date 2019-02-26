@@ -70,6 +70,7 @@ public class TankMode extends OpMode{
             robot.arm.setPower(0);
         }
 
+
         // Use bumpers to set lidPos
         if (gamepad1.dpad_down || gamepad2.dpad_down) {
             lidPos = 0;
