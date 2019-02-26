@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class Methods extends LinearOpmode { //I might be able to put this class in another file, idk but that'd be great
+public class ExperimentalTest extends LinearOpMode { //I might be able to put this class in another file, idk but that'd be great
     private ElapsedTime runtime = new ElapsedTime(); //Also note, I may still need to add the WhileOpModeIsActive to every loop
     RobotMap robot = new RobotMap();
 
@@ -185,10 +185,8 @@ public class Methods extends LinearOpmode { //I might be able to put this class 
         lidPos = 0;
         robot.lid.setPosition(lidPos); //opens
     }
-} //ends class
 
-public class Auto extends Methods { //I'm not sure if the whole 2 classes thing is gonna work but we'll see lol
-    @Override
+
     public void runOpMode() {
         waitforstart();
         robot.init(hardwareMap);
@@ -228,3 +226,4 @@ public class Auto extends Methods { //I'm not sure if the whole 2 classes thing 
         pause(0.5);
     }
 }
+
