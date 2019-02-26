@@ -195,6 +195,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         robot.lid.setPosition(lidPos);
         
         downLift(5);
+        pause(0.2);
         upLift(3);
         pause(2);
        
