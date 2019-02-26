@@ -47,14 +47,14 @@ public class AutoPit extends LinearOpMode {
             if (robot.touch.getState()) {
                 break;
             }
-
+            
         }
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
 
         runtime.reset();
         while(opModeIsActive() && runtime.seconds()< 1) {
-
+            
         }
 
         //rotate entire robot (clockwise from above) approx. 90 degrees (move left track forward and right track backward)
@@ -87,7 +87,7 @@ public class AutoPit extends LinearOpMode {
         }
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
-
+        
         //Using arm to get Around
         runtime.reset();
         robot.arm.setPower(.5);
@@ -100,7 +100,7 @@ public class AutoPit extends LinearOpMode {
         }
         robot.arm.setPower(0);
         robot.arm.setPower(0);
-
+        
         runtime.reset();
         while(opModeIsActive() && runtime.seconds()<0.5) {
             telemetry.addData("Waiting!", runtime);
@@ -109,25 +109,25 @@ public class AutoPit extends LinearOpMode {
                 break;
             }
         }
-
-
+        
+        
         //Go down at the end
         runtime.reset();
-
+    
         lidPos = 0;
-
+        
         robot.lid.setPosition(lidPos);
-
+    
         while(opModeIsActive() && runtime.seconds()<5) {
-            robot.lift.setPower(-1);
+             robot.lift.setPower(-1);
             telemetry.addData("Lowering 1!", runtime);
             telemetry.update();
             if (robot.touch.getState()) {
                 break;
             }
         }
-
-
+        
+        
         runtime.reset();
         while(opModeIsActive() && runtime.seconds()<1) {
             telemetry.addData("Lowering 2!", runtime);
@@ -138,11 +138,11 @@ public class AutoPit extends LinearOpMode {
         }
         robot.lift.setPower(0);
         lidPos = 1;
-
+        
         robot.lid.setPosition(lidPos);
-
+        
         runtime.reset();
-
+        
         robot.leftDrive.setPower(-1);
         robot.rightDrive.setPower(1);
         while(opModeIsActive() && runtime.seconds()< 1.2) {
@@ -151,7 +151,7 @@ public class AutoPit extends LinearOpMode {
         }
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
-
+        
         runtime.reset();
         robot.leftDrive.setPower(1);
         robot.rightDrive.setPower(1);
@@ -161,7 +161,7 @@ public class AutoPit extends LinearOpMode {
         }
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
-
+ 
         // while(opModeIsActive() && runtime.seconds()<11) {
         //     telemetry.addData("Lowering 3!", runtime);
         //     telemetry.update();
@@ -170,6 +170,6 @@ public class AutoPit extends LinearOpMode {
         //     }
         // }
         robot.lift.setPower(0);
-    }
+}
 }
 

@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
 
-public class Auto extends LinearOpMode {
+public class Drop extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     RobotMap robot = new RobotMap();
     double lidPos = 1;
@@ -152,121 +152,127 @@ public class Auto extends LinearOpMode {
         robot.rightDrive.setPower(0);
         
         //Using arm to get Around
-        runtime.reset();
-        robot.arm.setPower(.5);
-        while(opModeIsActive() && runtime.seconds()<1.1) {
-            telemetry.addData("Arm Active!", runtime);
-            telemetry.update();
-            
-        }
-        robot.arm.setPower(0);
-        
-        lidPos = 0;
-        robot.lid.setPosition(lidPos); //opens
-        
-        runtime.reset();
-        while(opModeIsActive() && runtime.seconds()<.5) {
-            telemetry.addData("Waiting!", runtime);
-            telemetry.update();
-        }
-        
-        runtime.reset();
-        robot.arm.setPower(-.5);
-        while(opModeIsActive() && runtime.seconds()<.2) {
-            telemetry.addData("Arm Active!", runtime);
-            telemetry.update();
-            
-        }
-        robot.arm.setPower(0);
-        
-        runtime.reset();
-        while(opModeIsActive() && runtime.seconds()<.2) {
-            telemetry.addData("Waiting!", runtime);
-            telemetry.update();
-        }
-    
-        
-        // runtime.reset();
-        // while(opModeIsActive() && runtime.seconds()<1) {
-        //     telemetry.addData("Waiting!", runtime);
-        //     telemetry.update();
-        // }
-        
         // runtime.reset();
         // robot.arm.setPower(.5);
-        // while(opModeIsActive() && runtime.seconds()<.1) {
-        //     telemetry.addData("Jerk!", runtime);
-        //     telemetry.update();
-        // }
-        // robot.arm.setPower(0);
-        
-        runtime.reset();
-        while(opModeIsActive() && runtime.seconds()<1) {
-            telemetry.addData("Waiting!", runtime);
-            telemetry.update();
-
-        }
-        
-        lidPos = 1;
-        robot.lid.setPosition(lidPos); //closes
-        
-        // runtime.reset();
-        // robot.arm.setPower(-0.5);
-        // while(opModeIsActive() && runtime.seconds()<1.2) {
+        // while(opModeIsActive() && runtime.seconds()<1.1) {
         //     telemetry.addData("Arm Active!", runtime);
         //     telemetry.update();
- 
+            
         // }
         // robot.arm.setPower(0);
         
-        runtime.reset();
-        while(opModeIsActive() && runtime.seconds()<2) { //lowers before moving (4)
-            robot.lift.setPower(-1);
-            telemetry.addData("Lowering!", runtime);
-            telemetry.update();
-            if (!robot.touch.getState()) {
-                break;
-            }
-        }
-        robot.lift.setPower(0);
+        // lidPos = 0;
+        // robot.lid.setPosition(lidPos); //opens
         
-        runtime.reset();
-        
-        robot.leftDrive.setPower(1);
-        robot.rightDrive.setPower(-1);
-        while(opModeIsActive() && runtime.seconds()< 1.5) {
-            telemetry.addData("Rotating!", runtime);
-            telemetry.update();
-        }
-        robot.leftDrive.setPower(0);
-        robot.rightDrive.setPower(0);
-        
-        //originally 3 
-        runtime.reset();
-        robot.leftDrive.setPower(1);
-        robot.rightDrive.setPower(1);
-        while(opModeIsActive() && runtime.seconds()< 4) {
-            telemetry.addData("Going Forward!", runtime);
-            telemetry.update();
-        }
-        robot.leftDrive.setPower(0);
-        robot.rightDrive.setPower(0);
- 
-        // while(opModeIsActive() && runtime.seconds()<11) {
-        //     telemetry.addData("Lowering 3!", runtime);
+        // runtime.reset();
+        // while(opModeIsActive() && runtime.seconds()<.5) {
+        //     telemetry.addData("Waiting!", runtime);
         //     telemetry.update();
         //     if (robot.touch.getState()) {
         //         break;
         //     }
         // }
-        robot.lift.setPower(0);
         
         // runtime.reset();
-        // robot.arm.setPower(.5);
-        // while(opModeIsActive() && runtime.seconds()<1) {
+        // robot.arm.setPower(-.5);
+        // while(opModeIsActive() && runtime.seconds()<.2) {
         //     telemetry.addData("Arm Active!", runtime);
         //     telemetry.update();
+            
         // }
         // robot.arm.setPower(0);
-}
+        
+        // runtime.reset();
+        // while(opModeIsActive() && runtime.seconds()<.2) {
+        //     telemetry.addData("Waiting!", runtime);
+        //     telemetry.update();
+        //     if (robot.touch.getState()) {
+        //         break;
+        //     }
+        // }
+    
+        
+        // // runtime.reset();
+        // // while(opModeIsActive() && runtime.seconds()<1) {
+        // //     telemetry.addData("Waiting!", runtime);
+        // //     telemetry.update();
+        // // }
+        
+        // // runtime.reset();
+        // // robot.arm.setPower(.5);
+        // // while(opModeIsActive() && runtime.seconds()<.1) {
+        // //     telemetry.addData("Jerk!", runtime);
+        // //     telemetry.update();
+        // // }
+        // // robot.arm.setPower(0);
+        
+        // runtime.reset();
+        // while(opModeIsActive() && runtime.seconds()<1) {
+        //     telemetry.addData("Waiting!", runtime);
+        //     telemetry.update();
+
+        // }
+        
+        // lidPos = 1;
+        // robot.lid.setPosition(lidPos); //closes
+        
+        // // runtime.reset();
+        // // robot.arm.setPower(-0.5);
+        // // while(opModeIsActive() && runtime.seconds()<1.2) {
+        // //     telemetry.addData("Arm Active!", runtime);
+        // //     telemetry.update();
+ 
+        // // }
+        // // robot.arm.setPower(0);
+        
+        // runtime.reset();
+        // while(opModeIsActive() && runtime.seconds()<2) { //lowers before moving (4)
+        //     robot.lift.setPower(-1);
+        //     telemetry.addData("Lowering 1!", runtime);
+        //     telemetry.update();
+        //     if (!robot.touch.getState()) {
+        //         break;
+        //     }
+        // }
+        // robot.lift.setPower(0);
+        
+        // runtime.reset();
+        
+        // robot.leftDrive.setPower(1);
+        // robot.rightDrive.setPower(-1);
+        // while(opModeIsActive() && runtime.seconds()< 1.5) {
+        //     telemetry.addData("Rotating!", runtime);
+        //     telemetry.update();
+        // }
+        // robot.leftDrive.setPower(0);
+        // robot.rightDrive.setPower(0);
+        
+        // //originally 3 
+        // runtime.reset();
+        // robot.leftDrive.setPower(1);
+        // robot.rightDrive.setPower(1);
+        // while(opModeIsActive() && runtime.seconds()< 4) {
+        //     telemetry.addData("Going Forward!", runtime);
+        //     telemetry.update();
+        // }
+        // robot.leftDrive.setPower(0);
+        // robot.rightDrive.setPower(0);
+ 
+        // // while(opModeIsActive() && runtime.seconds()<11) {
+        // //     telemetry.addData("Lowering 3!", runtime);
+        // //     telemetry.update();
+        // //     if (robot.touch.getState()) {
+        // //         break;
+        // //     }
+        // // }
+        // robot.lift.setPower(0);
+        
+        // // runtime.reset();
+        // // robot.arm.setPower(.5);
+        // // while(opModeIsActive() && runtime.seconds()<1) {
+        // //     telemetry.addData("Arm Active!", runtime);
+        // //     telemetry.update();
+        // // }
+        // // robot.arm.setPower(0);
+    }
 }

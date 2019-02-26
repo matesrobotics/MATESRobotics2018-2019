@@ -30,6 +30,7 @@ public class TankMode extends OpMode{
     public void start() {
         robot.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.hook.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     @Override // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
@@ -40,27 +41,39 @@ public class TankMode extends OpMode{
         robot.rightDrive.setPower(-gamepad1.left_stick_y);
 
         // Use Dpad-Up and Dpad-Down to run lift motor
-        if (gamepad1.right_bumper) { //if dpad-up is pressed, lift position increases
+        if (gamepad1.right_bumper  || gamepad2.right_bumper) { //if dpad-up is pressed, lift position increases
             robot.lift.setPower(1);
-        } else if (gamepad1.left_bumper && !robot.touch.getState()) {
+        } else if ((gamepad1.left_bumper && robot.touch.getState()) || (gamepad2.left_bumper && robot.touch.getState())) {
             robot.lift.setPower(-1);
         } else {
             robot.lift.setPower(0);
         }
+        
+        if (gamepad1.dpad_right) {
+            robot.hook.setPower(-0.4);
+        } else if (gamepad1.dpad_left) {
+            robot.hook.setPower(0.4);
+        } else {
+            robot.hook.setPower(0);
+        }
 
         // Control arm using left and right triggers
-        if(gamepad1.left_trigger != 0) {
+        if (gamepad1.left_trigger != 0) {
             robot.arm.setPower(-gamepad1.left_trigger / 2);
         } else if (gamepad1.right_trigger != 0){
             robot.arm.setPower(gamepad1.right_trigger / 2);
+        } else if (gamepad2.left_trigger != 0) {
+            robot.arm.setPower(-gamepad2.left_trigger / 2);
+        } else if (gamepad2.right_trigger != 0){
+            robot.arm.setPower(gamepad2.right_trigger / 2);
         } else {
             robot.arm.setPower(0);
         }
 
         // Use bumpers to set lidPos
-        if (gamepad1.dpad_down) {
+        if (gamepad1.dpad_down || gamepad2.dpad_down) {
             lidPos = 0;
-        } else if (gamepad1.dpad_up) {
+        } else if (gamepad1.dpad_up || gamepad2.dpad_up) {
             lidPos = 1;
         }
 
@@ -69,26 +82,10 @@ public class TankMode extends OpMode{
 
         // test touch sensor
         if (robot.touch.getState()) {
-            telemetry.addData("Digital Touch", "Is Pressed");
-        } else {
-            telemetry.addData("Digital Touch", "Is Not Pressed");
-        }
-
-
-        //This is the toggle for the lift, it's creating problems with the regular lift
-        // if (gamepad1.dpad_right) { //if dpad-up is pressed, lift position increases
-        //     runtime.reset();
-        //     while(runtime.seconds()<14){
-        //         robot.lift.setPower(1);
-        //     }
-        // } else if (gamepad1.dpad_left && !robot.touch.getState()) {
-        //     runtime.reset();
-        //     while(runtime.seconds()<17 && !robot.touch.getState()){
-        //         robot.lift.setPower(-1);
-        //     } 
-        // }else {
-        //     robot.lift.setPower(0);
-        // }
+                telemetry.addData("Digital Touch", "Is Not Pressed");
+            } else {
+                telemetry.addData("Digital Touch", "Is Pressed");
+            }
 
         // Send telemetry message to signify robot running;
         telemetry.addData("Status", "Run Time: " + runtime.toString());
