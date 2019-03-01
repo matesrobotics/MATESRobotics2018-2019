@@ -210,8 +210,11 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         pause(0.1);
 
         rotateLeft(0.75);
+        pause(0.1);
         goForward(1); //(check time)
+        pause(0.1);
         rotateLeft(0.325);
+        pause(0.1);
         goForward(1); //Go to depot (check time)
 
         armForward(0.5);
@@ -222,6 +225,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         armBackward(0.3); //This might not need to exist depending on time
 
         rotateLeft(1.5);
+        pause(0.2);
         goForward(1.8);
         armForward(0.5);
 
