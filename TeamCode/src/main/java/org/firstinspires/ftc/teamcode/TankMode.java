@@ -29,8 +29,9 @@ public class TankMode extends OpMode{
     @Override // Code to run ONCE when the driver hits PLAY
     public void start() {
         robot.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.hook.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.hook.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
     }
 
     @Override // Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
@@ -59,17 +60,22 @@ public class TankMode extends OpMode{
 
         // Control arm using left and right triggers
         if (gamepad1.left_trigger != 0) {
+            robot.arm.setTargetPosition(500);
             robot.arm.setPower(-gamepad1.left_trigger / 2);
         } else if (gamepad1.right_trigger != 0){
+            robot.arm.setTargetPosition(-500);
             robot.arm.setPower(gamepad1.right_trigger / 2);
         } else if (gamepad2.left_trigger != 0) {
+            robot.arm.setTargetPosition(500);
             robot.arm.setPower(-gamepad2.left_trigger / 2);
         } else if (gamepad2.right_trigger != 0){
+            robot.arm.setTargetPosition(-500);
             robot.arm.setPower(gamepad2.right_trigger / 2);
         } else {
             robot.arm.setPower(0);
         }
-
+        
+        int position = robot.arm.getCurrentPosition();
 
         // Use bumpers to set lidPos
         if (gamepad1.dpad_down || gamepad2.dpad_down) {
@@ -92,6 +98,7 @@ public class TankMode extends OpMode{
         telemetry.addData("Status", "Run Time: " + runtime.toString());
         telemetry.addData("Motors", "Left Drive (%.2f), Right Drive (%.2f)", -gamepad1.left_stick_y, gamepad1.right_stick_y);
         telemetry.addData("Current Arm Position", "Left (%.2f), Right (%.2f)", gamepad1.left_trigger, gamepad1.right_trigger);
+        telemetry.addData("Arm Encoder Position", position);
         telemetry.addData("Current Lid Position", robot.lid.getPosition());
         telemetry.addData("Requested Lid Position", lidPos);
         telemetry.addData("Status", "Running");

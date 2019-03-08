@@ -52,7 +52,7 @@ public class RobotMap {
         // Set all motors to run with or without encoders.
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         hook.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -63,7 +63,9 @@ public class RobotMap {
         touch = hwMap.get(DigitalChannel.class, "touch");
         touch.setMode(DigitalChannel.Mode.INPUT);
         //
-
+        
+        
+        //WHEN USING ENCODER THE TICKS ARE 1440
     }
 }
 
