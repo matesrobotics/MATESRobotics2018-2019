@@ -6,12 +6,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
+//Imports important stuff needed for the bot to run
 
 @TeleOp(name="Tank Mode")
-public class TankMode extends OpMode{
-
+public class TankMode extends OpMode{ //Creates the class containing everything
     double lidPos = 1;
-    RobotMap robot = new RobotMap(); // use the class created to define a Pushbot's hardware
+    RobotMap robot = new RobotMap(); //Defines the hardware
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override // Code to run ONCE when the driver hits INIT
@@ -41,16 +41,16 @@ public class TankMode extends OpMode{
         robot.leftDrive.setPower(-gamepad1.right_stick_y);
         robot.rightDrive.setPower(-gamepad1.left_stick_y);
 
-        // Use Dpad-Up and Dpad-Down to run lift motor
+        // Use the bumpers to move the lift up and down
         if (gamepad1.right_bumper  || gamepad2.right_bumper) { //if dpad-up is pressed, lift position increases
             robot.lift.setPower(1);
         } else if ((gamepad1.left_bumper && robot.touch.getState()) || (gamepad2.left_bumper && robot.touch.getState())) {
-            robot.lift.setPower(-1);
-        } else {
+            robot.lift.setPower(-1); //The line above contains the aforementioned Currie switch to prevent the bot from breaking if it goes down too far.
+        } else {                     
             robot.lift.setPower(0);
         }
         
-        if (gamepad1.dpad_right) {
+        if (gamepad1.dpad_right) { //Changes the hook power in or out
             robot.hook.setPower(-0.4);
         } else if (gamepad1.dpad_left) {
             robot.hook.setPower(0.4);
@@ -75,20 +75,18 @@ public class TankMode extends OpMode{
             robot.arm.setPower(0);
         }
         
-        int position = robot.arm.getCurrentPosition();
-
         // Use bumpers to set lidPos
+        int position = robot.arm.getCurrentPosition();
         if (gamepad1.dpad_down || gamepad2.dpad_down) {
-            lidPos = 0;
+            lidPos = 0; //open
         } else if (gamepad1.dpad_up || gamepad2.dpad_up) {
-            lidPos = 1;
+            lidPos = 1; //closed
         }
 
         lidPos = Range.clip(lidPos, 0, 1);
         robot.lid.setPosition(lidPos);
 
-        // test touch sensor
-        if (robot.touch.getState()) {
+        if (robot.touch.getState()) { //Touch sensor for Currie switch
                 telemetry.addData("Digital Touch", "Is Not Pressed");
             } else {
                 telemetry.addData("Digital Touch", "Is Pressed");
