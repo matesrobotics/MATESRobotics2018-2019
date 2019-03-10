@@ -13,11 +13,12 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class ExperimentalTest extends LinearOpMode { //I might be able to put this class in another file, idk but that'd be great
+public class ExpCraterDepotCrater extends LinearOpMode { //I might be able to put this class in another file, idk but that'd be great
     private ElapsedTime runtime = new ElapsedTime(); //Also note, I may still need to add the WhileOpModeIsActive to every loop
     RobotMap robot = new RobotMap();
     double lidPos = 1;
 
+    
     public void downLift(double time) {
         runtime.reset();
         robot.lift.setPower(-1);
@@ -27,7 +28,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
             if(!robot.touch.getState()) {
                 break;
             }
-        }    
+        }
         robot.lift.setPower(0);
     }
 
@@ -43,7 +44,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
 
     public void hookOut(double time) {
         runtime.reset();
-        robot.hook.setPower(-1);
+        robot.hook.setPower(-0.4);
         while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Rotating Hook Out!", runtime);
             telemetry.update();
@@ -53,7 +54,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
     
     public void hookIn(double time) {
         runtime.reset();
-        robot.hook.setPower(1);
+        robot.hook.setPower(0.4);
         while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Rotating Hook In!", runtime);
             telemetry.update();
@@ -65,7 +66,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         runtime.reset();
         robot.rightDrive.setPower(1);
         while(opModeIsActive() && runtime.seconds() < time) {
-            telemetry.addData("Moving Left Tread Forward!", runtime);
+            telemetry.addData("Moving Right Tread Forward!", runtime);
             telemetry.update();
         }
         robot.rightDrive.setPower(0);
@@ -75,7 +76,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         runtime.reset();
         robot.rightDrive.setPower(-1);
         while(opModeIsActive() && runtime.seconds() < time) {
-            telemetry.addData("Moving Left Tread Backward!", runtime);
+            telemetry.addData("Moving Right Tread Backward!", runtime);
             telemetry.update();
         }
         robot.rightDrive.setPower(0);
@@ -85,7 +86,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         runtime.reset();
         robot.leftDrive.setPower(1);
         while(opModeIsActive() && runtime.seconds() < time) {
-            telemetry.addData("Moving Right Tread Forward!", runtime);
+            telemetry.addData("Moving Left Tread Forward!", runtime);
             telemetry.update();
         }
         robot.leftDrive.setPower(0);
@@ -95,7 +96,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         runtime.reset();
         robot.leftDrive.setPower(-1);
         while(opModeIsActive() && runtime.seconds() < time) {
-            telemetry.addData("Moving Right Tread Backward!", runtime);
+            telemetry.addData("Moving Left Tread Backward!", runtime);
             telemetry.update();
         }
         robot.leftDrive.setPower(0);
@@ -126,7 +127,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         robot.rightDrive.setPower(1);
         robot.leftDrive.setPower(-1);
         while(opModeIsActive() && runtime.seconds() < time) {
-            telemetry.addData("Rotating Right!", runtime);
+            telemetry.addData("Rotating Left!", runtime);
             telemetry.update();
         }    
         robot.leftDrive.setPower(0);
@@ -138,7 +139,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         robot.rightDrive.setPower(-1);
         robot.leftDrive.setPower(1);
         while(opModeIsActive() && runtime.seconds() < time) {
-            telemetry.addData("Rotating Left!", runtime);
+            telemetry.addData("Rotating Right!", runtime);
             telemetry.update();
         }    
         robot.leftDrive.setPower(0);
@@ -194,6 +195,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         lidPos = 1;  //sets lid position to close
         robot.lid.setPosition(lidPos);
         
+        
         upLift(11); //Lower from lander
         hookOut(0.1);
         pause(0.1);
@@ -205,29 +207,28 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         leftBackward(0.25);
         pause(0.2);
 
-        rotateLeft (0.75); //Go to crater
-        goForward(1.3);
-        pause(0.1);
-
-        rotateLeft(0.75);
-        pause(0.1);
-        goForward(1); //(check time)
-        pause(0.1);
-        rotateLeft(0.325);
-        pause(0.1);
-        goForward(1); //Go to depot (check time)
-
-        armForward(0.5);
+        rotateLeft (0.9); //Go to depot
+        goForward(1.5);
+        
+        armForward(0.9);
         openLid();
-        pause(0.5);
+        
+        pause(0.7);
+        
         armBackward(0.1);
         closeLid();
-        armBackward(0.3); //This might not need to exist depending on time
+        armBackward(0.4);
+        
+        
+        rotateLeft(1.25);
+        goForward(1.5); //theoretically in the opposing crater
+        armBackward(0.5);
+        goForward(1.5);
+        armBackward(0.5);
+        goForward(1.25);
 
-        rotateLeft(1.5);
-        pause(0.2);
-        goForward(1.8);
-        armForward(0.5);
+        
+        
 
 
     }

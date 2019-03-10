@@ -16,12 +16,6 @@ public class Drop extends LinearOpMode {
     RobotMap robot = new RobotMap();
     double lidPos = 1;
 
-    //@Override //Code to run ONCE when the driver hits INIT
-    //public void init() {
-    //  robot.init(hardwareMap);
-
-    //}
-
     @Override
     public void runOpMode() {
         waitForStart();

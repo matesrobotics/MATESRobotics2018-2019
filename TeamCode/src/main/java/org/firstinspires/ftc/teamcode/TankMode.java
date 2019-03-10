@@ -19,7 +19,7 @@ public class TankMode extends OpMode{
         // Initialize the hardware variables.
         robot.init(hardwareMap);
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Last Modified: January 10, 2019", "Hello MATES Driver!");
+        telemetry.addData("Last Modified: March 5th, 2019", "Hello MATES Driver!");
     }
 
     @Override
@@ -60,16 +60,16 @@ public class TankMode extends OpMode{
 
         // Control arm using left and right triggers
         if (gamepad1.left_trigger != 0) {
-            robot.arm.setTargetPosition(500);
+            robot.arm.setTargetPosition(-100);
             robot.arm.setPower(-gamepad1.left_trigger / 2);
         } else if (gamepad1.right_trigger != 0){
-            robot.arm.setTargetPosition(-500);
+            robot.arm.setTargetPosition(100);
             robot.arm.setPower(gamepad1.right_trigger / 2);
         } else if (gamepad2.left_trigger != 0) {
-            robot.arm.setTargetPosition(500);
+            robot.arm.setTargetPosition(-100);
             robot.arm.setPower(-gamepad2.left_trigger / 2);
         } else if (gamepad2.right_trigger != 0){
-            robot.arm.setTargetPosition(-500);
+            robot.arm.setTargetPosition(100);
             robot.arm.setPower(gamepad2.right_trigger / 2);
         } else {
             robot.arm.setPower(0);

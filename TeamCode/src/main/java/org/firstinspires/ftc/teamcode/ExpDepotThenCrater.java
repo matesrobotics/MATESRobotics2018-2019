@@ -13,11 +13,12 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class DropExperimental extends LinearOpMode { //I might be able to put this class in another file, idk but that'd be great
+public class ExpDepotThenCrater extends LinearOpMode { //I might be able to put this class in another file, idk but that'd be great
     private ElapsedTime runtime = new ElapsedTime(); //Also note, I may still need to add the WhileOpModeIsActive to every loop
     RobotMap robot = new RobotMap();
     double lidPos = 1;
 
+    
     public void downLift(double time) {
         runtime.reset();
         robot.lift.setPower(-1);
@@ -27,8 +28,8 @@ public class DropExperimental extends LinearOpMode { //I might be able to put th
             if(!robot.touch.getState()) {
                 break;
             }
+        }
         robot.lift.setPower(0);
-        }    
     }
 
     public void upLift(double time) {
@@ -43,7 +44,7 @@ public class DropExperimental extends LinearOpMode { //I might be able to put th
 
     public void hookOut(double time) {
         runtime.reset();
-        robot.hook.setPower(-1);
+        robot.hook.setPower(-0.4);
         while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Rotating Hook Out!", runtime);
             telemetry.update();
@@ -53,7 +54,7 @@ public class DropExperimental extends LinearOpMode { //I might be able to put th
     
     public void hookIn(double time) {
         runtime.reset();
-        robot.hook.setPower(1);
+        robot.hook.setPower(0.4);
         while(opModeIsActive() && runtime.seconds() < time) {
             telemetry.addData("Rotating Hook In!", runtime);
             telemetry.update();
@@ -61,7 +62,7 @@ public class DropExperimental extends LinearOpMode { //I might be able to put th
         robot.hook.setPower(0);
     }
 
-    public void rightForward(double time) {
+    public void leftForward(double time) {
         runtime.reset();
         robot.rightDrive.setPower(1);
         while(opModeIsActive() && runtime.seconds() < time) {
@@ -71,7 +72,7 @@ public class DropExperimental extends LinearOpMode { //I might be able to put th
         robot.rightDrive.setPower(0);
     }
 
-    public void rightBackward(double time) {
+    public void leftBackward(double time) {
         runtime.reset();
         robot.rightDrive.setPower(-1);
         while(opModeIsActive() && runtime.seconds() < time) {
@@ -81,7 +82,7 @@ public class DropExperimental extends LinearOpMode { //I might be able to put th
         robot.rightDrive.setPower(0);
     }
 
-    public void leftForward(double time) {
+    public void rightForward(double time) {
         runtime.reset();
         robot.leftDrive.setPower(1);
         while(opModeIsActive() && runtime.seconds() < time) {
@@ -91,7 +92,7 @@ public class DropExperimental extends LinearOpMode { //I might be able to put th
         robot.leftDrive.setPower(0);
     }
 
-    public void leftBackward(double time) {
+    public void rightBackward(double time) {
         runtime.reset();
         robot.leftDrive.setPower(-1);
         while(opModeIsActive() && runtime.seconds() < time) {
@@ -121,7 +122,7 @@ public class DropExperimental extends LinearOpMode { //I might be able to put th
         robot.arm.setPower(0);
     }
 
-    public void rotateLeft(double time) {
+    public void rotateRight(double time) {
         runtime.reset();
         robot.rightDrive.setPower(1);
         robot.leftDrive.setPower(-1);
@@ -133,7 +134,7 @@ public class DropExperimental extends LinearOpMode { //I might be able to put th
         robot.rightDrive.setPower(0);
     }
 
-    public void rotateRight(double time) {
+    public void rotateLeft(double time) {
         runtime.reset();
         robot.rightDrive.setPower(-1);
         robot.leftDrive.setPower(1);
@@ -194,19 +195,39 @@ public class DropExperimental extends LinearOpMode { //I might be able to put th
         lidPos = 1;  //sets lid position to close
         robot.lid.setPosition(lidPos);
         
-        downLift(11); //Lower from lander
+        
+        upLift(11); //Lower from lander
         hookOut(0.1);
         pause(0.1);
         downLift(5.5);
-        rightForward(0.4);
+        leftForward(0.2);
         
-        rightBackward(0.25); //Jerk
-        rightForward(0.25);
-        rightBackward(0.25);
+        leftBackward(0.25); //Jerk
+        leftForward(0.25);
+        leftBackward(0.13);
         pause(0.2);
 
-        rotateRight (0.75); //Go to crater
-        goForward(1.8);
+        rotateLeft (0.65); //Go to depot
+        goForward(1.5);
+        
+        armForward(0.6);
+        openLid();
+        
+        pause(0.7);
+        
+        armBackward(0.1);
+        closeLid();
+        armBackward(0.4);
+        
+        
+        rotateLeft(1.15);
+        goForward(1.5); //theoretically in the opposing crater
+        goForward(1.5);
+        armForward(0.05);
+        goForward(3.73);
+
+        
+        
 
 
     }

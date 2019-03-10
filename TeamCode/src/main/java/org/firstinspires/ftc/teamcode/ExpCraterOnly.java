@@ -13,11 +13,12 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class ExperimentalTest extends LinearOpMode { //I might be able to put this class in another file, idk but that'd be great
+public class ExpCraterOnly extends LinearOpMode { //I might be able to put this class in another file, idk but that'd be great
     private ElapsedTime runtime = new ElapsedTime(); //Also note, I may still need to add the WhileOpModeIsActive to every loop
     RobotMap robot = new RobotMap();
     double lidPos = 1;
 
+    
     public void downLift(double time) {
         runtime.reset();
         robot.lift.setPower(-1);
@@ -186,7 +187,7 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         lidPos = 0;
         robot.lid.setPosition(lidPos); //opens
     }
-
+    
 
     public void runOpMode() {
         waitForStart();
@@ -195,53 +196,23 @@ public class ExperimentalTest extends LinearOpMode { //I might be able to put th
         robot.lid.setPosition(lidPos);
         
         
-        rightForward(2);
-        rightBackward(2);
-        
-        pause(1);
-        
-        leftForward(2);
-        leftBackward(2);
-        
-        rotateRight(1.5);
-        pause(0.5);
-        rotateLeft(1.5);
-        
-        /* upLift(5);
-        pause(0.3);
-        hookIn(1);
-        downLift(3);
-        pause(0.3);
-        hookOut(1);
-        pause(2);
-        
-        rightForward(0.5);
-        pause(0.3);
-        rightBackward(0.5);
-        pause(0.3);
-
-        leftForward(0.5);
-        pause(0.3);
-        leftBackward(0.5);
-        pause(0.3);
-
-        rotateRight(0.75);
-        pause(0.3);
-        rotateLeft(0.75);
-        pause(0.3);
-
-        goForward(1);
-        pause(0.3);
-        goBackward(1);
-        pause(0.3); */
-        
-        /* armForward(0.8);
+        upLift(11); //Lower from lander
+        hookOut(0.1);
         pause(0.1);
-        openLid();
-        pause(0.3);
-        closeLid();
-        armBackward(0.5);
-        pause(0.5); */
+        downLift(5.5);
+        leftForward(0.4);
+        
+        leftBackward(0.25); //Jerk
+        leftForward(0.25);
+        leftBackward(0.25);
+        pause(0.2);
+
+        rotateLeft (0.75); //Go to crater
+        goForward(1.9);
+        
+        armForward(0.8);
+
+
     }
 }
 
